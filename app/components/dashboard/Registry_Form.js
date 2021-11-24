@@ -5,7 +5,7 @@ import { Input, Icon, Button } from "react-native-elements";
 import { size, isEmpty } from "lodash";
 import { validarEmail } from "../../utils/validaciones";
 
-import * as firebase from "firebase";
+import firebase from "firebase";
 
 export default function Registry_Form(toast) {
   const [mostrar, setMostrar] = useState(false);
