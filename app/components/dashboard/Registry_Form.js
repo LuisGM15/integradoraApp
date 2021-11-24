@@ -1,12 +1,13 @@
 import React, { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, View, Text } from "react-native";
 import { Input, Icon, Button } from "react-native-elements";
 import { size, isEmpty } from "lodash";
 import { validarEmail } from "../../utils/validaciones";
-import firebase from "firebase/app";
-import { useNavigation } from "@react-navigation/native";
 
-export default function Form_Registry(toast) {
+import * as firebase from "firebase";
+
+export default function Registry_Form(toast) {
   const [mostrar, setMostrar] = useState(false);
   const [mostrar2, setMostrar2] = useState(false);
   const [datos, setDatos] = useState(valoreDefault);
@@ -30,13 +31,12 @@ export default function Form_Registry(toast) {
     else if (datos.password !== datos.repeatedPassword) {
       toastRef.current.show("Las contraseñas deben ser iguales");
     } else {
+      toastRef.current.show("REGISTROSO");
       firebase
         .auth()
         .createUserWithEmailAndPassword(datos.email, datos.password)
         .then((respuesta) => {
           console.log(respuesta);
-          toastRef.current.show("¡Registro exitoso!");
-          navigation.navigate("cuentas");
         })
         .catch((err) => {
           console.log(err);
