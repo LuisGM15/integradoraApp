@@ -6,6 +6,9 @@ import { size, isEmpty } from "lodash";
 import { validarEmail } from "../../utils/validaciones";
 
 import firebase from "firebase";
+import { firebaseApp } from "../../utils/firebase";
+import "firebase/firestore";
+const db = firebase.firestore(firebaseApp);
 
 export default function Registry_Form(toast) {
   const [mostrar, setMostrar] = useState(false);
@@ -13,6 +16,17 @@ export default function Registry_Form(toast) {
   const [datos, setDatos] = useState(valoreDefault);
   const { toastRef } = toast;
   const navigation = useNavigation();
+
+  const prueba = () => {
+    const list = {
+      operationType: "signIn",
+      user: {
+        uid: "6Yxg79O0zLddcbxsdNau5k6WyXE2",
+      },
+    };
+
+    console.log(list["user"]["uid"]);
+  };
 
   const onSubmit = () => {
     if (
@@ -32,11 +46,16 @@ export default function Registry_Form(toast) {
       toastRef.current.show("Las contraseñas deben ser iguales");
     } else {
       toastRef.current.show("REGISTROSO");
+      /* BLOQUE PARA CREAR EL NUEVO USUARIO */
       firebase
         .auth()
         .createUserWithEmailAndPassword(datos.email, datos.password)
-        .then((respuesta) => {
-          console.log(respuesta);
+        .then((request) => {
+          /* SI EL REGISTRO ES EXITOSO, ENTONCES SE AGREGARÁ EL USUARIO AL FIRESTORE */
+          db.collection("accounts").add({
+            tokenUser: request["user"]["uid"],
+            rol: "candidate",
+          });
         })
         .catch((err) => {
           console.log(err);
