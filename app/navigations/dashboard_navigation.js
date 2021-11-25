@@ -4,6 +4,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "../screens/dashboard/Login";
 import Registry from "../screens/dashboard/Registry";
 import Contrator_index from "../screens/contractor/contractor_index";
+import Candidate_index from "../screens/candidate/candidate_index";
+import Candidate_Navigation from "./candidate_navigation";
 
 const Stack = createNativeStackNavigator();
 
@@ -33,9 +35,14 @@ export default function Dashboard() {
           options={{ title: "Registro" }}
         />
         <Stack.Screen
-          name="contrator_index"
+          name="contractor_index"
           component={Contrator_index}
-          options={{ title: "Bienvenido" }}
+          options={{ title: "Bienvenido Contratista" }}
+        />
+        <Stack.Screen
+          name="candidate_index"
+          component={Candidate_Navigation}
+          options={{ title: "Bienvenido Candidato" }}
         />
       </Stack.Navigator>
     </NavigationContainer>

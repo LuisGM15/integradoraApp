@@ -1,20 +1,23 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Icon } from "react-native-elements";
 /* Importaciones de mis pantallas */
-import Busquedas from "../screens/Busquedas";
-import RutasCuentas from "./RutasCuenta";
-import Favoritos from "../screens/Favoritos";
-import RutasSucursales from "./RutasSucursales";
-import TopSucursales from "../screens/TopSucursales";
+import Candidate_index from "../screens/candidate/candidate_index";
+import Candidate_profile from "../screens/candidate/candidate_profile";
 
 const Tab = createBottomTabNavigator();
 
-export default function Navegacion() {
+export default function Candidate_Navigation() {
+  const Drawer = createDrawerNavigator();
   return (
     <NavigationContainer>
-      <Tab.Navigator
+      <Drawer.Navigator initialRouteName="inicio">
+        <Drawer.Screen name="inicio" component={Candidate_index} />
+        <Drawer.Screen name="perfil" component={Candidate_profile} />
+      </Drawer.Navigator>
+      {/* <Tab.Navigator
         initialRouteName="cuenta"
         tabBarStyle={{
           //Color del tecto e icono cuando no esta activado
@@ -31,27 +34,7 @@ export default function Navegacion() {
           component={Busquedas}
           options={{ title: "Busquedas" }}
         />
-        <Tab.Screen
-          name="cuenta"
-          component={RutasCuentas}
-          options={{ headerShown: false }}
-        />
-        <Tab.Screen
-          name="favoritos"
-          component={Favoritos}
-          options={{ title: "Favoritos" }}
-        />
-        <Tab.Screen
-          name="sucursales"
-          component={RutasSucursales}
-          options={{ headerShown: false }}
-        />
-        <Tab.Screen
-          name="topSucursales"
-          component={TopSucursales}
-          options={{ title: "TopSucursales" }}
-        />
-      </Tab.Navigator>
+      </Tab.Navigator> */}
     </NavigationContainer>
   );
 }

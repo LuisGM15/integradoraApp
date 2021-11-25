@@ -37,7 +37,6 @@ export default function Login_Form(toast) {
           //Si los datos son correctos no debe enviar a nuestra screen de cuentas
           toastRef.current.show("¡Bienvenido!");
           queryUser(request["user"]["uid"]);
-          navigation.navigate("contrator_index");
         })
         .catch((err) => {
           console.log(err);
@@ -46,7 +45,28 @@ export default function Login_Form(toast) {
     }
   };
 
-  const queryUser = (token) => {};
+  /* cOMPROBAMOS EL TIPO DE ROL QUE TIENE EL USUARIO */
+  const queryUser = (token) => {
+    //CONSULTA A LA BDD
+    db.collection("accounts")
+      .get()
+      .then((request) => {
+        //RECORREMOS LA COLLECIÓN
+        request.forEach((doc) => {
+          // VERIFICA SI EL DOCUMENTO PERTENECE AL USUARIO LOGEADO
+          if (token == doc.data()["tokenUser"]) {
+            /* SI EL ID COINCIDE SE COMPRUEBA EL ROL */
+            if (doc.data()["rol"] == "candidate") {
+              //SI ES CANDIDATO....
+              navigation.navigate("candidate_index");
+            } else if (doc.data()["rol"] == "contractor") {
+              //SI ES CONTRATISTA....
+              navigation.navigate("contractor_index");
+            }
+          }
+        });
+      });
+  };
 
   const onChange = (e, type) => {
     setDatos({ ...datos, [type]: e.nativeEvent.text });
