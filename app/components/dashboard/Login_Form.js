@@ -4,6 +4,7 @@ import { Input, Button, Icon } from "react-native-elements";
 import { useNavigation } from "@react-navigation/core";
 import { validarEmail } from "../../utils/validaciones";
 import { size, isEmpty } from "lodash";
+import "../../utils/globals";
 
 import firebase from "firebase";
 import { firebaseApp } from "../../utils/firebase";
@@ -152,7 +153,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   btn: {
-    backgroundColor: "#0A6ED3",
+    backgroundColor: global.color_principal,
   },
   icono: {
     color: "#c1c1c1",
