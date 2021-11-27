@@ -8,3 +8,7 @@ export default function Name() {
     </View>
   );
 }
+
+
+
+npm i react-native-modal-datetime-picker @react-native-community/datetimepicker --force

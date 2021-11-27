@@ -7,6 +7,7 @@ import "../utils/globals";
 /* Importaciones de mis pantallas */
 import Candidate_index from "../screens/candidate/candidate_index";
 import Candidate_profile from "../screens/candidate/candidate_profile";
+import Candidate_interests from "../screens/candidate/candidate_interests";
 
 const Tab = createBottomTabNavigator();
 
@@ -38,6 +39,11 @@ export default function Candidate_Navigation() {
         options={{ title: "Inicio" }}
       />
       <Tab.Screen
+        name="intereses"
+        component={Candidate_interests}
+        options={{ title: "Mis intereses" }}
+      />
+      <Tab.Screen
         name="perfil"
         component={Candidate_profile}
         options={{ title: "Mi perfil" }}
@@ -53,6 +59,9 @@ function opciones(ruta, color) {
       iconName = "home";
       break;
     case "perfil":
+      iconName = "favorite";
+      break;
+    case "intereses":
       iconName = "favorite";
       break;
     default:
