@@ -8,6 +8,7 @@ import "../utils/globals";
 import Candidate_index from "../screens/candidate/candidate_index";
 import Candidate_profile from "../screens/candidate/candidate_profile";
 import Candidate_interests from "../screens/candidate/candidate_interests";
+import Contractor_Registry from "../screens/contractor/contractor_registry";
 
 const Tab = createBottomTabNavigator();
 
@@ -48,6 +49,11 @@ export default function Candidate_Navigation() {
         component={Candidate_profile}
         options={{ title: "Mi perfil" }}
       />
+      <Tab.Screen
+        name="Contratista"
+        component={Contractor_Registry}
+        options={{ title: "Ser contratista" }}
+      />
     </Tab.Navigator>
   );
 }
@@ -62,6 +68,9 @@ function opciones(ruta, color) {
       iconName = "favorite";
       break;
     case "intereses":
+      iconName = "favorite";
+      break;
+    case "Contratista":
       iconName = "favorite";
       break;
     default:

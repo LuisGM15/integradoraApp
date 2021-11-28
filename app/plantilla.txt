@@ -12,3 +12,57 @@ export default function Name() {
 
 
 npm i react-native-modal-datetime-picker @react-native-community/datetimepicker --force
+
+
+
+
+const Guardar = () => {
+    console, console.log(datos);
+    //CONSULTA LA COLECCION DE ACCOUNTS
+    db.collection("accounts")
+      .get()
+      .then((request) => {
+        request.forEach((item) => {
+          //CONSULTA SI EL DOC EN TURNO COINCIDE CON EL USUARIO ACTIVO
+          if (item.data()["tokenUser"] === firebase.auth().currentUser.uid) {
+            //SI LO ENCUENTRA INSERTA LA EMPRESA
+            db.collection("accounts")
+              .doc(item.id)
+              .collection("negocio")
+              .add({
+                nombre: datos.nombre,
+                rfc: datos.rfc,
+                telefono: datos.telefono,
+                area: datos.area,
+              })
+              .then((request) => {
+                /* POSTERIOR AL REGISTRO DEL NEGOCIO, SE INSEERTA LA DIRECCION */
+                db.collection("accounts")
+                  .doc(item.id)
+                  .collection("negocio")
+                  .doc(request.id)
+                  .collection("direccion")
+                  .add({
+                    numero: datos.numero,
+                    calle: datos.calle,
+                    colonia: datos.colonia,
+                    ciudad: datos.ciudad,
+                    estado: datos.estado,
+                  })
+                  .then(() => {
+                    console.log(
+                      "------------------------------------------------------"
+                    );
+                    console.log(item.id);
+                    toastRef.current.show("Datos modificados");
+                    db.collection("accounts")
+                      .doc(item.id)
+                      .update({ rol: "contractor" }).then(()=>{
+                        
+                      });
+                  });
+              });
+          }
+        });
+      });
+  };

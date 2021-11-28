@@ -6,6 +6,7 @@ import Registry from "../screens/dashboard/Registry";
 import Contrator_index from "../screens/contractor/contractor_index";
 import Candidate_index from "../screens/candidate/candidate_index";
 import Candidate_Navigation from "./candidate_navigation";
+
 import "../utils/globals";
 
 const Stack = createNativeStackNavigator();
@@ -41,6 +42,7 @@ export default function Dashboard() {
           component={Contrator_index}
           options={{ title: "Bienvenido Contratista" }}
         />
+
         <Stack.Screen
           name="candidate_index"
           component={Candidate_Navigation}
