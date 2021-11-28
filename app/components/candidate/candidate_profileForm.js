@@ -3,6 +3,12 @@ import { View, Text, Picker, StyleSheet, ScrollView } from "react-native";
 import { Input, Icon, Button } from "react-native-elements";
 import RadioGroup from "react-native-radio-buttons-group"; // radioButton
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import moment from "moment";
+import { firebaseApp } from "../../utils/firebase";
+import firebase from "firebase/app";
+import "firebase/storage";
+import "firebase/firestore";
+const db = firebase.firestore(firebaseApp);
 
 //opciones de radiobutton
 const radioButtonsData = [
@@ -18,29 +24,19 @@ const radioButtonsData = [
   },
 ];
 
-export default function Candidate_Profile_Form() {
+export default function Candidate_Profile_Form(toast) {
   const [radioButtons, setRadioButtons] = useState(radioButtonsData); //radioButton
   const [selectedValue, setSelectedValue] = useState("Primaria"); //
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [doc, setDoc] = useState(valoresDoc);
-  const [sex, setSex] = useState("");
-  var sisi = "";
+  const { toastRef } = toast;
+  /* const [sex, setSex] = useState("");
+  var sisi = ""; */
 
   function onPressRadioButton(radioButtonsArray) {
     //radioButton
     setRadioButtons(radioButtonsArray);
     /* console.log(radioButtonsArray["label"]); */
-
-    radioButtonsArray.forEach((doc) => {
-      /* if (doc["selected"]) onChange("rb", doc["value"]); */
-      if (doc["selected"]) {
-        /* console.log(doc["label"]); */
-        sisi = doc["label"];
-        setSex(doc["label"]);
-        console.log(sex);
-        setDoc({ ...doc, ["sexo"]: sisi });
-      }
-    });
   }
 
   const showDatePicker = () => {
@@ -52,7 +48,10 @@ export default function Candidate_Profile_Form() {
   };
 
   const handleConfirm = (date) => {
-    console.warn("A date has been picked: ", date);
+    const _fecha = moment(date).format("DD/MM/YYYY");
+    /* console.warn("A date has been picked: ", date); */
+    console.log(_fecha);
+    setDoc({ ...doc, nacimiento: _fecha });
     hideDatePicker();
   };
 
@@ -60,8 +59,35 @@ export default function Candidate_Profile_Form() {
   const onChange = (e, type) => {
     setDoc({ ...doc, [type]: e.nativeEvent.text });
   };
-  const Send = () => {
-    console.log(doc);
+  const Save = () => {
+    console.log("--------------------------------------------------------");
+    //cCONSULTA LA COLLRECION DE CUENTAS
+    db.collection("accounts")
+      .get()
+      .then((request) => {
+        //RECORREMOS LOS DOCUMENTOS EN CUENTAS
+        request.forEach((item) => {
+          //PREGUNTA SI COICIDE EL DOCUEMNTO RECORRIDO CON EL UID DEL USUARIO ACTIVO
+          if (item.data()["tokenUser"] === firebase.auth().currentUser.uid) {
+            //SI LO ENCUENTRA REGISTRA LOS DATOS DE USUARIO
+            console.log("coincide: " + item.id);
+            db.collection("accounts")
+              .doc(item.id)
+              .update({
+                paterno: doc.paterno,
+                materno: doc.materno,
+                nombres: doc.nombres,
+                telefono: doc.telefono,
+                sexo: doc.sexo,
+                estudios: doc.estudios,
+                nacimiento: doc.nacimiento,
+              })
+              .then(() => {
+                toastRef.current.show("Datos modificados");
+              });
+          }
+        });
+      });
   };
 
   return (
@@ -90,25 +116,35 @@ export default function Candidate_Profile_Form() {
         <RadioGroup
           containerStyle={styles.inputForm}
           radioButtons={radioButtons}
-          onPress={onPressRadioButton}
+          onPress={(e) => {
+            e.forEach((val) => {
+              if (val["selected"]) {
+                setDoc({ ...doc, sexo: val["label"] });
+              }
+            });
+          }}
         />
         {/* Selector de estudios */}
         <Picker
           containerStyle={styles.inputForm}
           selectedValue={selectedValue}
           style={{ height: 50, width: 150 }}
-          onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+          onValueChange={(itemValue, itemIndex) => {
+            console.log(itemValue);
+            setDoc({ ...doc, estudios: itemValue });
+            setSelectedValue(itemValue);
+          }}
         >
-          <Picker.Item label="Primaria" value="primaria" />
-          <Picker.Item label="Secundaria" value="secundaria" />
-          <Picker.Item label="Bachillerato" value="bachillerato" />
-          <Picker.Item label="Licenciatura" value="licenciatura" />
-          <Picker.Item label="Maestria" value="maestria" />
+          <Picker.Item label="Primaria" value="Primaria" />
+          <Picker.Item label="Secundaria" value="Secundaria" />
+          <Picker.Item label="Bachillerato" value="Bachillerato" />
+          <Picker.Item label="Licenciatura" value="Licenciatura" />
+          <Picker.Item label="Maestria" value="Maestria" />
         </Picker>
-        <Input
+        {/* <Input
           placeholder="Habilidades, conocimientos"
           containerStyle={styles.inputForm}
-        />
+        /> */}
         <Button title="Show Date Picker" onPress={showDatePicker} />
         <DateTimePickerModal
           isVisible={isDatePickerVisible}
@@ -128,7 +164,7 @@ export default function Candidate_Profile_Form() {
           color="#0A6ED3"
           containerStyle={styles.btn}
           //Vinculamos el envió a la ruta agregar-suc
-          onPress={() => Send()}
+          onPress={() => Save()}
         />
       </View>
     </ScrollView>
@@ -140,7 +176,9 @@ export default function Candidate_Profile_Form() {
       materno: "",
       nombres: "",
       telefono: "",
-      sexo: sex,
+      sexo: "",
+      estudios: "",
+      nacimiento: "",
     };
   }
 }
