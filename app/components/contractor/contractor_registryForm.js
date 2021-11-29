@@ -8,7 +8,6 @@ import "firebase/storage";
 import "firebase/firestore";
 const db = firebase.firestore(firebaseApp);
 import "../../utils/globals";
-import darkColors from "react-native-elements/dist/config/colorsDark";
 
 export default function Contractor_RegistryForm(toast) {
   const [selectedValue, setSelectedValue] = useState("Selecciona");

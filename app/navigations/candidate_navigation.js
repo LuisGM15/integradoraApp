@@ -14,10 +14,9 @@ const Tab = createBottomTabNavigator();
 
 /* global.color_principal */
 export default function Candidate_Navigation() {
-  const Drawer = createDrawerNavigator();
   return (
     <Tab.Navigator
-      initialRouteName="Cuentas"
+      initialRouteName="home"
       tabBarStyle={{
         //Color del tecto e icono cuando no esta activado
         tabBarInactiveTintColor: "#52585E",

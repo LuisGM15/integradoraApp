@@ -3,8 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "../screens/dashboard/Login";
 import Registry from "../screens/dashboard/Registry";
-import Contrator_index from "../screens/contractor/contractor_index";
-import Candidate_index from "../screens/candidate/candidate_index";
+import Contrator_navigation from "./contractor_navigation";
 import Candidate_Navigation from "./candidate_navigation";
 
 import "../utils/globals";
@@ -39,8 +38,8 @@ export default function Dashboard() {
         />
         <Stack.Screen
           name="contractor_index"
-          component={Contrator_index}
-          options={{ title: "Bienvenido Contratista" }}
+          component={Contrator_navigation}
+          options={{ headerShown: false }}
         />
 
         <Stack.Screen
