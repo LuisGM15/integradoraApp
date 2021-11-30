@@ -31,26 +31,20 @@ export default function Contractor_RegistryForm(toast) {
                 telefono: datos.telefono,
                 area: datos.area,
                 tokenUser: firebase.auth().currentUser.uid,
+                numero: datos.numero,
+                calle: datos.calle,
+                colonia: datos.colonia,
+                ciudad: datos.ciudad,
+                estado: datos.estado,
+                cp: datos.cp,
               })
               .then((request) => {
-                /* POSTERIOR AL REGISTRO DEL NEGOCIO, SE INSEERTA LA DIRECCION */
-                db.collection("negocio")
-                  .doc(request.id)
-                  .collection("direccion")
-                  .add({
-                    numero: datos.numero,
-                    calle: datos.calle,
-                    colonia: datos.colonia,
-                    ciudad: datos.ciudad,
-                    estado: datos.estado,
-                  })
+                /* POSTERIOR AL REGISTRO DEL NEGOCIO, SE ACTUALZIA EL ROL */
+                db.collection("accounts")
+                  .doc(item.id)
+                  .update({ rol: "contractor" })
                   .then(() => {
-                    db.collection("accounts")
-                      .doc(item.id)
-                      .update({ rol: "contractor" })
-                      .then(() => {
-                        toastRef.current.show("Datos modificados");
-                      });
+                    toastRef.current.show("Datos modificados");
                   });
               });
           }

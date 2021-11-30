@@ -14,6 +14,12 @@ export default function Contractor_business() {
   const [area, setArea] = useState("");
   const [rfc, setRfc] = useState("");
   const [telefono, setTelefono] = useState("");
+  const [numero, setNumero] = useState("");
+  const [calle, setCalle] = useState("");
+  const [colonia, setColonia] = useState("");
+  const [ciudad, setCiudad] = useState("");
+  const [estado, setEstado] = useState("");
+  const [cp, setCP] = useState("");
   const navegacion = useNavigation();
 
   useFocusEffect(
@@ -27,7 +33,13 @@ export default function Contractor_business() {
                 item.data()["nombre"],
                 item.data()["area"],
                 item.data()["rfc"],
-                item.data()["telefono"]
+                item.data()["telefono"],
+                item.data()["numero"],
+                item.data()["calle"],
+                item.data()["colonia"],
+                item.data()["ciudad"],
+                item.data()["estado"],
+                item.data()["cp"]
               );
             }
           });
@@ -35,19 +47,43 @@ export default function Contractor_business() {
     }, [])
   );
 
-  const asignarCampos = (name, area, rfc, tel) => {
+  const asignarCampos = (
+    name,
+    area,
+    rfc,
+    tel,
+    num,
+    calle,
+    colonia,
+    ciudad,
+    estado,
+    cp
+  ) => {
     setnombre(name);
     setArea(area);
     setRfc(rfc);
     setTelefono(tel);
+    setNumero(num),
+      setCalle(calle),
+      setColonia(colonia),
+      setCiudad(colonia),
+      setCiudad(ciudad),
+      setEstado(estado),
+      setCP(cp);
   };
 
   return (
     <View style={styles.vista}>
-      <Text style={styles.direccion}>{nombre}</Text>
-      <Text style={styles.direccion}>{area}</Text>
-      <Text style={styles.direccion}>{telefono}</Text>
-      <Text style={styles.direccion}>{rfc}</Text>
+      <Text style={styles.direccion}>Nombre: {nombre}</Text>
+      <Text style={styles.direccion}>Area: {area}</Text>
+      <Text style={styles.direccion}>Teléfono: {telefono}</Text>
+      <Text style={styles.direccion}>Rfc: {rfc}</Text>
+      <Text style={styles.direccion}>Número: {numero}</Text>
+      <Text style={styles.direccion}>Calle: {calle}</Text>
+      <Text style={styles.direccion}>Colonia: {colonia}</Text>
+      <Text style={styles.direccion}>Ciudad: {ciudad}</Text>
+      <Text style={styles.direccion}>Estado: {estado}</Text>
+      <Text style={styles.direccion}>Código postal: {cp}</Text>
 
       <Icon
         reverse
