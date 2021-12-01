@@ -10,6 +10,10 @@ import {
 } from "react-native";
 import { Image } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
+import "../../utils/styles";
+import { Card } from "react-native-elements/dist/card/Card";
+
+
 
 export default function ListaCandidatos(propiedades) {
   const { candidatos } = propiedades;
@@ -21,6 +25,7 @@ export default function ListaCandidatos(propiedades) {
           renderItem={(candidatos) => <Candidatos candidatos={candidatos} />}
           keyExtractor={(item, index) => index.toString()}
         />
+
       ) : (
         <View style={styles.candidatos}>
           <ActivityIndicator size="large" color="#0000ff" />
@@ -28,6 +33,7 @@ export default function ListaCandidatos(propiedades) {
         </View>
       )}
     </View>
+
   );
 }
 
@@ -42,43 +48,23 @@ function Candidatos(propiedades) {
   };
 
   return (
-    <TouchableOpacity onPress={consultarSucursal}>
-      <Text style={styles.nombre}>{nombres}</Text>
-      <Text style={styles.nombre}>{paterno}</Text>
-      <Text style={styles.nombre}>{materno}</Text>
-      <Text style={styles.nombre}>{sexo}</Text>
-      <Text style={styles.nombre}>{telefono}</Text>
-      <Text style={styles.nombre}>{estudios}</Text>
-    </TouchableOpacity>
+    <Card containerStyle={styles.tarjeta}>
+      <TouchableOpacity onPress={consultarSucursal}>
+        <View style={styles.box}>
+          <View>
+            <Image source={require('../../utils/images/anonimo.png')} style={styles.imagen}></Image>
+          </View>
+          <View style={styles.boxC}>
+            <Text style={styles.titulo}>{nombres + " " + paterno + " " + materno}</Text>
+            <View style={styles.linea} />
+            <Text style={styles.subtitulo}>{sexo}</Text>
+            <Text style={styles.subtitulo}>{telefono}</Text>
+            <Text style={styles.subtitulo}>{estudios}</Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+    </Card>
+
   );
 }
-const styles = StyleSheet.create({
-  vacantes: {
-    marginTop: 10,
-    marginBottom: 10,
-    alignItems: "center",
-  },
-  lista: {
-    flexDirection: "row",
-    margin: 10,
-  },
-  viewImagen: {
-    marginRight: 15,
-  },
-  imagen: {
-    width: 80,
-    height: 80,
-  },
-  nombre: {
-    fontWeight: "bold",
-  },
-  direccion: {
-    paddingTop: 2,
-    color: "grey",
-  },
-  descripcion: {
-    paddingTop: 2,
-    color: "grey",
-    width: 300,
-  },
-});
+

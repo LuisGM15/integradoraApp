@@ -10,6 +10,8 @@ import {
 } from "react-native";
 import { Image } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
+import "../../utils/styles";
+import { Card } from "react-native-elements/dist/card/Card";
 
 export default function ListaVacantes(propiedades) {
   const { vacantes } = propiedades;
@@ -42,44 +44,23 @@ function Vacantes(propiedades) {
   };
 
   return (
-    <TouchableOpacity onPress={consultarSucursal}>
-      <Text style={styles.nombre}>{titulo}</Text>
-      <Text style={styles.nombre}>{descripcion}</Text>
-      <Text style={styles.nombre}>{horario}</Text>
-      <Text style={styles.nombre}>{pago}</Text>
-      <Text style={styles.nombre}>{requisitos}</Text>
-      <Text style={styles.nombre}>{tokenUser}</Text>
-    </TouchableOpacity>
+    <Card containerStyle={styles.tarjeta}>
+      <TouchableOpacity onPress={consultarSucursal}>
+        <View style={styles.boxC}>
+          <Text style={styles.titulo}>{titulo}</Text>
+          <View style={styles.linea} />
+          <Text style={styles.concepto}>Descripción: </Text>
+          <Text style={styles.subtitulo}>{descripcion}</Text>
+          <Text style={styles.concepto}>Requerimientos: </Text>
+          <Text style={styles.subtitulo}>{requisitos}</Text>
+          <Text style={styles.concepto}>Horario: </Text>
+          <Text style={styles.subtitulo}>{horario}</Text>
+          <Text style={styles.concepto}>Sueldo: </Text>
+          <Text style={styles.subtitulo}>{"$" + pago}</Text>
+          {/* <Text style={styles.nombre}>{tokenUser}</Text> */}
+        </View>
+      </TouchableOpacity>
+    </Card>
   );
 }
 
-const styles = StyleSheet.create({
-  vacantes: {
-    marginTop: 10,
-    marginBottom: 10,
-    alignItems: "center",
-  },
-  lista: {
-    flexDirection: "row",
-    margin: 10,
-  },
-  viewImagen: {
-    marginRight: 15,
-  },
-  imagen: {
-    width: 80,
-    height: 80,
-  },
-  nombre: {
-    fontWeight: "bold",
-  },
-  direccion: {
-    paddingTop: 2,
-    color: "grey",
-  },
-  descripcion: {
-    paddingTop: 2,
-    color: "grey",
-    width: 300,
-  },
-});

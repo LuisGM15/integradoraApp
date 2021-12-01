@@ -8,6 +8,8 @@ import "firebase/storage";
 import "firebase/firestore";
 const db = firebase.firestore(firebaseApp);
 import { useNavigation } from "@react-navigation/native";
+import { Image } from "react-native-elements";
+
 
 export default function Contractor_Profile() {
   const [nombres, setnombres] = useState("");
@@ -26,7 +28,7 @@ export default function Contractor_Profile() {
           request.forEach((item) => {
             if (item.data()["tokenUser"] === firebase.auth().currentUser.uid) {
               asignarCampos(
-                item.data()["nombre"],
+                item.data()["nombres"],
                 item.data()["paterno"],
                 item.data()["materno"],
                 item.data()["nacimiento"],
@@ -49,8 +51,11 @@ export default function Contractor_Profile() {
   };
 
   return (
+
     <View style={styles.vista}>
-      <Text>MI PERFILS</Text>
+      <View>
+        <Image source={require('../../utils/images/anonimo.png')} style={styles.imagenP}></Image>
+      </View>
       <Text style={styles.direccion}>{nombres}</Text>
       <Text style={styles.direccion}>{paterno}</Text>
       <Text style={styles.direccion}>{materno}</Text>
@@ -58,6 +63,7 @@ export default function Contractor_Profile() {
       <Text style={styles.direccion}>{sexo}</Text>
       <Text style={styles.direccion}>{tel}</Text>
       <Icon
+        style={styles.vista}
         reverse
         type="material_community"
         name="edit"
@@ -70,18 +76,3 @@ export default function Contractor_Profile() {
   );
 }
 
-const styles = StyleSheet.create({
-  vista: {
-    flex: 1,
-    backgroundColor: "#FFFF",
-  },
-  btn: {
-    position: "absolute",
-    bottom: 10,
-    right: 10,
-    //Para IOS mostrará una sombra para el botón
-    shadowColor: "black",
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.5,
-  },
-});

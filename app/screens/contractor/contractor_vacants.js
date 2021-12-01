@@ -35,7 +35,6 @@ export default function Contractor_Vacants() {
   );
   return (
     <View style={styles.vista}>
-      <Text>LISTA DE VACATES</Text>
       <ListaVacantes vacantes={vacantes} />
       <Icon
         reverse

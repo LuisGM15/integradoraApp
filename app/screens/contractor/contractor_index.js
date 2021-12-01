@@ -31,7 +31,6 @@ export default function Contractor_index() {
 
   return (
     <View style={styles.vista}>
-      <Text>LISTA DE CANDIDATOS</Text>
       <ListaCandidatos candidatos={candidatos} />
       {/* <ListaVacantes vacantes={vacantes} /> */}
     </View>
