@@ -20,9 +20,31 @@ export default function Contractor_Vacants_Add() {
 
   const Guardar = () => {
     db.collection("vacantes")
-      .add()
-      .then((request) => {});
+      .add({
+        titulo: titulo,
+        requisitos: requisitos,
+        descripcion: descripcion,
+        horario: horario,
+        pago: pago,
+        tokenUser: firebase.auth().currentUser.uid,
+      })
+      .then((request) => {
+        console.log("oks");
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
+
+  function valoreDefault() {
+    return {
+      titulo: "",
+      requisitos: "",
+      descripcion: "",
+      horario: "",
+      pago: "",
+    };
+  }
 
   return (
     <ScrollView>
