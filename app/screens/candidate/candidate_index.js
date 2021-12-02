@@ -1,13 +1,58 @@
-import React from "react";
-import { ScrollView } from "react-native-gesture-handler";
+import React, { useState, useEffect, useCallback } from "react";
+import { useFocusEffect } from "@react-navigation/native";
+import { firebaseApp } from "../../utils/firebase";
+import firebase from "firebase/app";
+import "firebase/firestore";
+import { View, Text, StyleSheet } from "react-native";
+import { Icon } from "react-native-elements";
+import { useNavigation } from "@react-navigation/native";
+const db = firebase.firestore(firebaseApp);
 import Candidate_indexForm from "../../components/candidate/candidate_indexForm";
 
-import { View, Text, StyleSheet } from "react-native";
-import { Input, Icon, Button } from "react-native-elements";
 export default function Candidate_index() {
+  const navegacion = useNavigation();
+  const [vacantes, setVacantes] = useState([]);
+
+  useFocusEffect(
+    useCallback(() => {
+      const arrVacantes = [];
+      db.collection("vacantes")
+        .get()
+        .then((res) => {
+          res.forEach((doc) => {
+            const vacante = doc.data();
+            vacante.id = doc.id;
+            arrVacantes.push(vacante);
+          });
+          setVacantes(arrVacantes);
+        });
+    }, [])
+  );
+
+  const subirImagenesStorage = async () => {
+    const imagenesBlob = [];
+    await Promise.all(
+      map(imagenes, async (imagen) => {
+        const response = await fetch(imagen);
+        const blob = await response.blob();
+        const ref = firebase.storage().ref("accounts").child(uuid());
+        await ref.put(blob).then(async (resultado) => {
+          await firebase
+            .storage()
+            .ref(`sucursales/${resultado.metadata.name}`)
+            .getDownloadURL()
+            .then((urlFoto) => {
+              imagenesBlob.push(urlFoto);
+            });
+        });
+      })
+    );
+    return imagenesBlob;
+  };
+
   return (
     <View style={styles.vista}>
-      <Candidate_indexForm />
+      <Candidate_indexForm vacantes={vacantes} />
       <Icon
         reverse
         type="material_community"

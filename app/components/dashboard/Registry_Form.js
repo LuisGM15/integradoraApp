@@ -24,8 +24,6 @@ export default function Registry_Form(toast) {
         uid: "6Yxg79O0zLddcbxsdNau5k6WyXE2",
       },
     };
-
-    console.log(list["user"]["uid"]);
   };
 
   const onSubmit = () => {
@@ -55,6 +53,7 @@ export default function Registry_Form(toast) {
           db.collection("accounts").add({
             tokenUser: request["user"]["uid"],
             rol: "candidate",
+            full: false,
           });
         })
         .catch((err) => {

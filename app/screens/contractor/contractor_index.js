@@ -20,9 +20,11 @@ export default function Contractor_index() {
         .get()
         .then((res) => {
           res.forEach((doc) => {
-            const candidato = doc.data();
-            candidato.id = doc.id;
-            arrCandidatos.push(candidato);
+            if (doc.data()["full"]) {
+              const candidato = doc.data();
+              candidato.id = doc.id;
+              arrCandidatos.push(candidato);
+            }
           });
           setCandidatos(arrCandidatos);
         });

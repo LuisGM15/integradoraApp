@@ -62,14 +62,14 @@ function opciones(ruta, color) {
     case "home_contractor":
       iconName = "home";
       break;
-    case "perfil":
-      iconName = "favorite";
+    case "perfil_contractor":
+      iconName = "content-paste";
       break;
-    case "intereses":
-      iconName = "favorite";
+    case "contractor_vacantes":
+      iconName = "book";
       break;
-    case "Contratista":
-      iconName = "favorite";
+    case "negocio_contractor_nav":
+      iconName = "tablet";
       break;
     default:
       break;
