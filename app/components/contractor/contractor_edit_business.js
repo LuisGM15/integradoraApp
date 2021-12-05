@@ -104,120 +104,95 @@ export default function Contractor_Edit_Business() {
 
   return (
     <ScrollView>
-      <View style={styles.formContainer}>
-        <Text> Editar datos !!</Text>
-
+      <View style={styles.formulario}>
         <Input
-          placeholder={"Nombres"}
+          labelStyle={styles.lab}
+          style={styles.inp}
+          label={"Nombres"}
           value={nombre}
           containerStyle={styles.inputForm}
           onChange={(e) => setNombre(e.nativeEvent.text)}
         />
         <Input
-          placeholder="Rfc"
+          labelStyle={styles.lab}
+          style={styles.inp}
+          label="Rfc"
           value={rfc}
           containerStyle={styles.inputForm}
           onChange={(e) => setRFC(e.nativeEvent.text)}
         />
         <Input
+          labelStyle={styles.lab}
+          style={styles.inp}
           value={telefono}
-          placeholder="Teléfono"
+          label="Teléfono"
           containerStyle={styles.inputForm}
           onChange={(e) => setTelefono(e.nativeEvent.text)}
         />
         <Input
+          labelStyle={styles.lab}
+          style={styles.inp}
           value={area}
-          placeholder="Área"
+          label="Área"
           containerStyle={styles.inputForm}
           onChange={(e) => setArea(e.nativeEvent.text)}
         />
         <Input
+          labelStyle={styles.lab}
+          style={styles.inp}
           value={numero}
-          placeholder="Número"
+          label="Número"
           containerStyle={styles.inputForm}
           onChange={(e) => setNumero(e.nativeEvent.text)}
         />
         <Input
+          labelStyle={styles.lab}
+          style={styles.inp}
           value={calle}
-          placeholder="Calle"
+          label="Calle"
           containerStyle={styles.inputForm}
           onChange={(e) => setCalle(e.nativeEvent.text)}
         />
         <Input
+          labelStyle={styles.lab}
+          style={styles.inp}
           value={cp}
-          placeholder="CP"
+          label="CP"
           containerStyle={styles.inputForm}
           onChange={(e) => setCP(e.nativeEvent.text)}
         />
         <Input
+          labelStyle={styles.lab}
+          style={styles.inp}
           value={colonia}
-          placeholder="Colonia"
+          label="Colonia"
           containerStyle={styles.inputForm}
           onChange={(e) => setColonia(e.nativeEvent.text)}
         />
         <Input
+          labelStyle={styles.lab}
+          style={styles.inp}
           value={estado}
-          placeholder="Estado"
+          label="Estado"
           containerStyle={styles.inputForm}
           onChange={(e) => setEstado(e.nativeEvent.text)}
         />
         <Input
+          labelStyle={styles.lab}
+          style={styles.inp}
           value={ciudad}
-          placeholder="Ciudad"
+          label="Ciudad"
           containerStyle={styles.inputForm}
           onChange={(e) => setCiudad(e.nativeEvent.text)}
         />
-
-        <Button
-          title="Registrar"
-          containerStyle={styles.btnContainer}
-          /* buttonStyle={styles.btn} */
-          onPress={Guardar}
-        />
+        <View style={styles.centrar}>
+          <Button
+            title="Registrar"
+            buttonStyle={styles.btnForm}
+            onPress={Guardar}
+          />
+        </View>
       </View>
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  formContainer: {
-    /*  flex: 1, */
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 30,
-    paddingLeft: 29,
-    paddingRight: 20,
-  },
-  btnRegistrar: {
-    width: "2000%",
-    height: "30",
-  },
-  inputForm: {
-    width: "100%",
-    marginTop: 20,
-  },
-  picker_style: {
-    width: "100%",
-    marginTop: 100,
-  },
-  btnContainer: {
-    marginTop: 20,
-    marginBottom: 40,
-    width: "100%",
-  },
-  btn: {
-    backgroundColor: global.color_princilap,
-  },
-  icono: {
-    color: "#c1c1c1",
-  },
-  btn: {
-    position: "absolute",
-    bottom: 10,
-    right: 10,
-    //Para IOS mostrará una sombra para el botón
-    shadowColor: "black",
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.5,
-  },
-});

@@ -1,6 +1,28 @@
 import { StyleSheet } from "react-native";
 
 global.styles = StyleSheet.create({
+    centrar: {
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    btnForm: {
+        backgroundColor: "#29528E",
+        width: 200,
+
+
+
+    },
+    formulario: {
+        padding: 25
+    },
+    lab: {
+        color: "#29528E",
+    },
+    inp: {
+        height: 40,
+        borderWidth: 1,
+        paddingLeft: 15,
+    },
     boxMiPerfil: {
         flexDirection: "row",
         paddingTop: 10,

@@ -117,102 +117,65 @@ export default function Contractor_profile_edit() {
   };
   return (
     <ScrollView>
-      <View style={styles.formContainer}>
-        <Text> Editar datos !!</Text>
-
+      <View style={styles.formulario}>
         <Input
-          placeholder={"Nombres"}
+          labelStyle={styles.lab}
+          style={styles.inp}
+          label={"Nombres"}
           value={nombres}
-          containerStyle={styles.inputForm}
           onChange={(e) => setnombres(e.nativeEvent.text)}
         />
         <Input
-          placeholder="Apellido paterno"
+          labelStyle={styles.lab}
+          style={styles.inp}
+          label="Apellido paterno"
           value={paterno}
-          containerStyle={styles.inputForm}
           onChange={(e) => setPaterno(e.nativeEvent.text)}
         />
         <Input
+          labelStyle={styles.lab}
+          style={styles.inp}
           value={materno}
-          placeholder="Apellido materno"
-          containerStyle={styles.inputForm}
+          label="Apellido materno"
           onChange={(e) => setMaterno(e.nativeEvent.text)}
         />
         <Input
+          labelStyle={styles.lab}
+          style={styles.inp}
           value={nacimiento}
-          placeholder="Fecha de nacimiento"
-          containerStyle={styles.inputForm}
+          label="Fecha de nacimiento"
           onChange={(e) => setNacimiento(e.nativeEvent.text)}
         />
         <Input
+          labelStyle={styles.lab}
+          style={styles.inp}
           value={tel}
-          placeholder="Número telefónico"
-          containerStyle={styles.inputForm}
+          label="Número telefónico"
           onChange={(e) => setTelefono(e.nativeEvent.text)}
         />
         <Input
+          labelStyle={styles.lab}
+          style={styles.inp}
           value={sexo}
-          placeholder="Sexo"
-          containerStyle={styles.inputForm}
+          label="Sexo"
           onChange={(e) => setSexo(e.nativeEvent.text)}
         />
         <Input
+          labelStyle={styles.lab}
+          style={styles.inp}
           value={estudios}
-          placeholder="Estudios"
-          containerStyle={styles.inputForm}
+          label="Estudios"
           onChange={(e) => setEstudios(e.nativeEvent.text)}
         />
-
-        <Button
-          title="Registrar"
-          containerStyle={styles.btnContainer}
-          /* buttonStyle={styles.btn} */
-          onPress={Guardar}
-        />
+        <View style={styles.centrar}>
+          <Button
+            title="Registrar"
+            buttonStyle={styles.btnForm}
+            onPress={Guardar}
+          />
+        </View>
       </View>
     </ScrollView>
   );
 }
 
-const styles = StyleSheet.create({
-  formContainer: {
-    /*  flex: 1, */
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 30,
-    paddingLeft: 29,
-    paddingRight: 20,
-  },
-  btnRegistrar: {
-    width: "2000%",
-    height: "30",
-  },
-  inputForm: {
-    width: "100%",
-    marginTop: 20,
-  },
-  picker_style: {
-    width: "100%",
-    marginTop: 100,
-  },
-  btnContainer: {
-    marginTop: 20,
-    marginBottom: 40,
-    width: "100%",
-  },
-  btn: {
-    backgroundColor: global.color_princilap,
-  },
-  icono: {
-    color: "#c1c1c1",
-  },
-  btn: {
-    position: "absolute",
-    bottom: 10,
-    right: 10,
-    //Para IOS mostrará una sombra para el botón
-    shadowColor: "black",
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.5,
-  },
-});
