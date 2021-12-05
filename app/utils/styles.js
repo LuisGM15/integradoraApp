@@ -1,6 +1,23 @@
 import { StyleSheet } from "react-native";
 
 global.styles = StyleSheet.create({
+    boxMiPerfil: {
+        flexDirection: "row",
+        paddingTop: 10,
+
+    },
+    miPerfilSub: {
+        fontWeight: "bold",
+        color: "#000000",
+        paddingLeft: 2
+
+    },
+    miPerfil: {
+        fontSize: 17,
+        fontWeight: "bold",
+        color: "#000000",
+        paddingTop: 20,
+    },
     imagenP: {
         width: 90,
         height: 90,
@@ -19,6 +36,7 @@ global.styles = StyleSheet.create({
         backgroundColor: "#FFFF",
         justifyContent: "center",
         alignItems: "center"
+
 
     },
     concepto: {

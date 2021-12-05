@@ -9,12 +9,14 @@ import "firebase/firestore";
 const db = firebase.firestore(firebaseApp);
 import { useNavigation } from "@react-navigation/native";
 import { Image } from "react-native-elements";
+import { useSafeAreaFrame } from "react-native-safe-area-context";
 
 
 export default function Contractor_Profile() {
   const [nombres, setnombres] = useState("");
   const [paterno, setPaterno] = useState("");
   const [materno, setMaterno] = useState("");
+  const [estudios, setEstudios] = useState("");
   const [nacimiento, setNacimiento] = useState("");
   const [sexo, setSexo] = useState("");
   const [tel, setTelefono] = useState("");
@@ -31,6 +33,7 @@ export default function Contractor_Profile() {
                 item.data()["nombres"],
                 item.data()["paterno"],
                 item.data()["materno"],
+                item.data()["estudios"],
                 item.data()["nacimiento"],
                 item.data()["sexo"],
                 item.data()["telefono"]
@@ -41,27 +44,38 @@ export default function Contractor_Profile() {
     }, [])
   );
 
-  const asignarCampos = (nombre, paterno, materno, naci, sexo, tel) => {
+  const asignarCampos = (nombre, paterno, materno, estudios, naci, sexo, tel) => {
     setnombres(nombre);
     setPaterno(paterno);
     setMaterno(materno);
+    setEstudios(estudios);
     setNacimiento(naci);
     setSexo(sexo);
     setTelefono(tel);
   };
 
   return (
-
     <View style={styles.vista}>
       <View>
         <Image source={require('../../utils/images/anonimo.png')} style={styles.imagenP}></Image>
       </View>
-      <Text style={styles.direccion}>{nombres}</Text>
-      <Text style={styles.direccion}>{paterno}</Text>
-      <Text style={styles.direccion}>{materno}</Text>
-      <Text style={styles.direccion}>{nacimiento}</Text>
-      <Text style={styles.direccion}>{sexo}</Text>
-      <Text style={styles.direccion}>{tel}</Text>
+      <Text style={styles.miPerfil}>{nombres + " " + paterno + " " + materno}</Text>
+      <View style={styles.boxMiPerfil}>
+        <Text style={styles.concepto}>Nivel de Estudios:</Text>
+        <Text style={styles.miPerfilSub}>{estudios}</Text>
+      </View>
+      <View style={styles.boxMiPerfil}>
+        <Text style={styles.concepto}>Fecha de Nacimiento:</Text>
+        <Text style={styles.miPerfilSub}>{nacimiento}</Text>
+      </View>
+      <View style={styles.boxMiPerfil}>
+        <Text style={styles.concepto}>Sexo:</Text>
+        <Text style={styles.miPerfilSub}>{sexo}</Text>
+      </View>
+      <View style={styles.boxMiPerfil}>
+        <Text style={styles.concepto}>Número de Tel:</Text>
+        <Text style={styles.miPerfilSub}>{tel}</Text>
+      </View>
       <Icon
         style={styles.vista}
         reverse

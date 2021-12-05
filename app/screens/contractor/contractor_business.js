@@ -8,6 +8,8 @@ import "firebase/storage";
 import "firebase/firestore";
 const db = firebase.firestore(firebaseApp);
 import { useNavigation } from "@react-navigation/native";
+import { Image } from "react-native-elements";
+
 
 export default function Contractor_business() {
   const [nombre, setnombre] = useState("");
@@ -74,16 +76,52 @@ export default function Contractor_business() {
 
   return (
     <View style={styles.vista}>
-      <Text style={styles.direccion}>Nombre: {nombre}</Text>
-      <Text style={styles.direccion}>Area: {area}</Text>
-      <Text style={styles.direccion}>Teléfono: {telefono}</Text>
-      <Text style={styles.direccion}>Rfc: {rfc}</Text>
-      <Text style={styles.direccion}>Número: {numero}</Text>
-      <Text style={styles.direccion}>Calle: {calle}</Text>
-      <Text style={styles.direccion}>Colonia: {colonia}</Text>
-      <Text style={styles.direccion}>Ciudad: {ciudad}</Text>
-      <Text style={styles.direccion}>Estado: {estado}</Text>
-      <Text style={styles.direccion}>Código postal: {cp}</Text>
+      <View>
+        <Image source={require('../../utils/images/anonimo.png')} style={styles.imagenP}></Image>
+      </View>
+      <Text style={styles.miPerfil}>{nombre}</Text>
+      <View style={styles.boxMiPerfil}>
+        <Text style={styles.concepto}>Área:</Text>
+        <Text style={styles.miPerfilSub}>{area}</Text>
+      </View>
+      <View style={styles.boxMiPerfil}>
+        <Text style={styles.concepto}>Tel:</Text>
+        <Text style={styles.miPerfilSub}>{telefono}</Text>
+        <Text>   </Text>
+        <Text style={styles.concepto}>RFC:</Text>
+        <Text style={styles.miPerfilSub}>{rfc}</Text>
+      </View>
+      <View style={styles.boxMiPerfil}>
+        <Text style={styles.concepto}>Calle:</Text>
+        <Text style={styles.miPerfilSub}>{calle}</Text>
+        <Text>   </Text>
+        <Text style={styles.concepto}>Num:</Text>
+        <Text style={styles.miPerfilSub}>{numero}</Text>
+      </View>
+      <View style={styles.boxMiPerfil}>
+        <Text style={styles.concepto}>Colonia:</Text>
+        <Text style={styles.miPerfilSub}>{colonia}</Text>
+        <Text>   </Text>
+        <Text style={styles.concepto}>Código Postal:</Text>
+        <Text style={styles.miPerfilSub}>{cp}</Text>
+      </View>
+
+      <View style={styles.boxMiPerfil}>
+        <Text style={styles.concepto}>Estado:</Text>
+        <Text style={styles.miPerfilSub}>{estado}</Text>
+        <Text>   </Text>
+        <Text style={styles.concepto}>Ciudad:</Text>
+        <Text style={styles.miPerfilSub}>{ciudad}</Text>
+      </View>
+
+
+
+
+
+
+
+
+
 
       <Icon
         reverse
@@ -98,18 +136,4 @@ export default function Contractor_business() {
   );
 }
 
-const styles = StyleSheet.create({
-  vista: {
-    flex: 1,
-    backgroundColor: "#FFFF",
-  },
-  btn: {
-    position: "absolute",
-    bottom: 10,
-    right: 10,
-    //Para IOS mostrará una sombra para el botón
-    shadowColor: "black",
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.5,
-  },
-});
+
