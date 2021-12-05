@@ -14,107 +14,51 @@ import { firebaseApp } from "../../utils/firebase";
 import firebase from "firebase/app";
 import "firebase/storage";
 import "firebase/firestore";
+import Lista_de_habilidades from "./lista_habilidades";
 const db = firebase.firestore(firebaseApp);
+import Candidate_Interes_2 from "./candidate_interes_2";
 
 export default function Candidate_Profile_Form() {
-  const ArrayInte = [];
-  const [arreglo, setArreglo] = useState([]);
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [selectedValue, setSelectedValue] = useState("Medicina");
-  const [idColecction, setIdCol] = useState([]);
-  const [habilidades, sethabilidades] = useState([]);
+  const [idColecction, setIdCol] = useState();
+  const [intereses, setIntereses] = useState([]);
 
-  /* useFocusEffect(
+  /* useEffect(() => {
+    
+  }, []); */
+
+  useFocusEffect(
     useCallback(() => {
-      const arrHabilidades = [];
       db.collection("accounts")
-        .doc(idColecction)
-        .collection("intereses")
         .get()
         .then((res) => {
-          res.forEach((doc) => {
-            const habilidad = doc.data();
-            habilidad.id = doc.id;
-            arrHabilidades.push(habilidad);
+          res.forEach((item) => {
+            if (item.data()["tokenUser"] == firebase.auth().currentUser.uid) {
+              console.log("encontrado");
+              const arrInteres = [];
+              console.log(item.id);
+              db.collection("accounts")
+                .doc(item.id)
+                .collection("intereses")
+                .get()
+                .then((request) => {
+                  request.forEach((doc) => {
+                    const interes = doc.data();
+                    interes.id = doc.id;
+                    arrInteres.push(interes);
+                  });
+                  setIntereses(arrInteres);
+                  console.log(intereses);
+                });
+            }
           });
-          sethabilidades(arrHabilidades);
         });
     }, [])
-  ); */
+  );
 
-  useEffect(() => {
-    console.log("EFFECT");
-    db.collection("accounts")
-      .get()
-      .then((request) => {
-        //RECORREMOS LOS DOCUMENTOS EN CUENTAS
-        request.forEach((item) => {
-          //PREGUNTA SI COICIDE EL DOCUEMNTO RECORRIDO CON EL UID DEL USUARIO ACTIVO
-          if (item.data()["tokenUser"] === firebase.auth().currentUser.uid) {
-            setIdCol(item.id);
-            console.log(idColecction);
-          }
-        });
-      });
-  }, []);
-
-  function Send(_habilidad) {
-    var ban = false;
-    var idBorrar = "";
-    /* db.collection("accounts").doc(idColecction).collection("intereses").add({
-      nombre: _habilidad,
-    }); */
-    db.collection("accounts")
-      .doc(idColecction)
-      .collection("intereses")
-      .get()
-      .then((request2) => {
-        request2.forEach((item2) => {
-          if (item2.data()["nombre"] === _habilidad) {
-            /* SI LA ENCONTRÓ CAMBIA LA BANDERA DE ESTADO */
-            idBorrar = item2.id;
-            ban = true;
-          }
-        });
-        /* SI YA EXISTE LA HABILIDAD LA BORRA*/
-        if (ban) {
-          console.log("YA EXISTE");
-          db.collection("accounts")
-            .doc(idColecction)
-            .collection("intereses")
-            .doc(idBorrar)
-            .delete()
-            .then((req) => {
-              console.log("ELIMINADO---------------------------");
-            });
-        } else {
-          /* SI NO EXISTE LA AGREGA */
-          db.collection("accounts")
-            .doc(idColecction)
-            .collection("intereses")
-            .add({
-              nombre: _habilidad,
-            })
-            .then((request3) => {
-              console.log("GUARDADO-----------------------------------");
-            })
-            .catch((e) => {
-              console.log("NO SE ARMOOOOOO------------------------");
-            });
-        }
-      });
-  }
-
-  function AddArreglo(val) {
-    //EVITAMOS AGRAGAR EL VALOR "SELECCIONAR"
-    if (val != "seleccionar") {
-      setArreglo([...arreglo, val]);
-    }
-  }
-
-  function clear() {
-    setArreglo([]);
-  }
+  const _si = () => {
+    console.log(intereses);
+  };
 
   return (
     <View style={styles.vista}>
@@ -122,14 +66,13 @@ export default function Candidate_Profile_Form() {
         <View style={styles.renglon}>
           <Picker
             containerStyle={styles.inputForm}
-            selectedValue={selectedValue}
+            /*  selectedValue={selectedValue} */
             style={{ height: 50, width: 150 }}
             onValueChange={(itemValue, itemIndex) => {
-              console.log(itemValue);
+              /* console.log(itemValue);
               setSelectedValue(itemValue);
               AddArreglo(itemValue);
-              Send(itemValue);
-              /* ArrayInte.push(itemValue); */
+              Send(itemValue); */
             }}
           >
             <Picker.Item label="Seleccionar" value="seleccionar" />
@@ -139,49 +82,13 @@ export default function Candidate_Profile_Form() {
             <Picker.Item label="Artes" value="artes" />
             <Picker.Item label="Danza" value="danza" />
           </Picker>
-          <Button title="Borrar" onPress={clear} />
+          <Button title="Borrar" onPress={_si} />
         </View>
         <Text> Seleccionados: </Text>
-        {/* {size(arreglo) > 0 ? (
-          <FlatList
-            data={arreglo}
-            renderItem={(arreglo) => <Text>{arreglo.item}</Text>}
-            keyExtractor={(item, index) => index.toString()}
-          />
-        ) : (
-          <Text>No hay seleccionados</Text>
-        )} */}
+        <Candidate_Interes_2 intereses={intereses} />
       </View>
-      <Icon
-        reverse
-        type="material_community"
-        name="save"
-        color="#0A6ED3"
-        containerStyle={styles.btn}
-        //Vinculamos el envió a la ruta agregar-suc
-        onPress={() => Guardar()}
-      />
     </View>
   );
-
-  /* function ListaHailidades(props) {
-    const { habilidades } = props;
-
-    return (
-      <FlatList
-        data={habilidades}
-        renderItem={(habilidades) => <Habilidad habilidades={habilidades} />}
-        keyExtractor={(item, index) => index.toString()}
-      />
-    );
-  }
-
-  function Habilidad(propiedades) {
-    const { habili } = propiedades;
-    const { nombre } = habili.item;
-
-    return <Text>{nombre}</Text>;
-  } */
 }
 
 const styles = StyleSheet.create({
