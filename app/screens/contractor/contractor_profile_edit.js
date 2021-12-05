@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Picker } from "react-native";
 import { Input, Icon, Button } from "react-native-elements";
 import { firebaseApp } from "../../utils/firebase";
 import firebase from "firebase/app";
@@ -11,7 +11,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 
 export default function Contractor_profile_edit() {
-  const [selectedValue, setSelectedValue] = useState("Selecciona");
+  const [selectedValue, setSelectedValue] = useState(estudios); //
   const [datos, setDatos] = useState(valoreDefault);
   const [nombres, setnombres] = useState("");
   const [paterno, setPaterno] = useState("");
@@ -160,13 +160,29 @@ export default function Contractor_profile_edit() {
           label="Sexo"
           onChange={(e) => setSexo(e.nativeEvent.text)}
         />
-        <Input
+        <Picker
+          containerStyle={styles.inputForm}
+          selectedValue={selectedValue}
+          style={{ height: 50, width: 150 }}
+          onValueChange={(itemValue, itemIndex) => {
+            console.log(itemValue);
+            setDoc({ ...doc, estudios: estudios });
+            setSelectedValue(itemValue);
+          }}
+        >
+          <Picker.Item label="Primaria" value="Primaria" />
+          <Picker.Item label="Secundaria" value="Secundaria" />
+          <Picker.Item label="Bachillerato" value="Bachillerato" />
+          <Picker.Item label="Licenciatura" value="Licenciatura" />
+          <Picker.Item label="Maestria" value="Maestria" />
+        </Picker>
+        {/*  <Input
           labelStyle={styles.lab}
           style={styles.inp}
           value={estudios}
           label="Estudios"
           onChange={(e) => setEstudios(e.nativeEvent.text)}
-        />
+        /> */}
         <View style={styles.centrar}>
           <Button
             title="Registrar"

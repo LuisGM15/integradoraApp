@@ -5,6 +5,8 @@ import { useNavigation } from "@react-navigation/core";
 import { validarEmail } from "../../utils/validaciones";
 import { size, isEmpty } from "lodash";
 import "../../utils/globals";
+import { Image } from "react-native-elements";
+
 
 import firebase from "firebase";
 import { firebaseApp } from "../../utils/firebase";
@@ -74,10 +76,15 @@ export default function Login_Form(toast) {
   };
 
   return (
-    <View style={styles.formContainer}>
+    <View style={styles.login}>
+      <View style={styles.centrar}>
+        <Image source={require('../../utils/images/anonimo.png')} style={styles.imagenLogin}></Image>
+      </View>
+      <View style={styles.espacio}></View>
       <Input
-        placeholder="Correo Electrónico"
-        containerStyle={styles.inputForm}
+        labelStyle={styles.lab}
+        style={styles.inp}
+        label="Correo Electrónico"
         onChange={(e) => onChange(e, "email")}
         rightIcon={
           <Icon
@@ -88,8 +95,9 @@ export default function Login_Form(toast) {
         }
       />
       <Input
-        placeholder="Contraseña"
-        containerStyle={styles.inputForm}
+        label="Contraseña"
+        labelStyle={styles.lab}
+        style={styles.inp}
         password={true}
         secureTextEntry={true}
         secureTextEntry={mostrar ? false : true}
@@ -103,22 +111,25 @@ export default function Login_Form(toast) {
           />
         }
       />
-      <Button
-        title="Iniciar Sesión"
-        containerStyle={styles.btnContainer}
-        buttonStyle={styles.btn}
-        /* Al dar click activamos el método onSubmit */
-        onPress={onSubmit}
-      />
-      <Text style={styles.textRegistrar}>
-        ¿Aún no tienes una cuenta?{" "}
-        <Text
-          style={styles.link}
-          onPress={() => navigation.navigate("registry")}
-        >
-          Registrate
+      <View style={styles.centrar}>
+        <Button
+          title="Iniciar Sesión"
+          buttonStyle={styles.btnForm}
+          /* Al dar click activamos el método onSubmit */
+          onPress={onSubmit}
+        />
+
+        <Text style={styles.textRegistrar}>
+          ¿Aún no tienes una cuenta?{" "}
+          <Text
+            style={styles.link}
+            onPress={() => navigation.navigate("registry")}
+          >
+            Registrate
+          </Text>
         </Text>
-      </Text>
+      </View>
+
     </View>
   );
 }
@@ -129,46 +140,3 @@ function valoresDefault() {
     password: "",
   };
 }
-
-const styles = StyleSheet.create({
-  formContainer: {
-    paddingTop: 200,
-    flex: 1,
-    paddingLeft: 30,
-    paddingRight: 30,
-    alignItems: "center",
-    justifyContent: "center",
-    /* flex: 1,
-    alignItems: "center",
-    justifyContent: "center", */
-  },
-  inputForm: {
-    width: "100%",
-    marginTop: 20,
-  },
-  btnContainer: {
-    paddingLeft: 10,
-    paddingRight: 10,
-    marginTop: 20,
-    width: "100%",
-  },
-  btn: {
-    backgroundColor: global.color_principal,
-  },
-  icono: {
-    color: "#c1c1c1",
-  },
-  textRegistrar: {
-    marginTop: 50,
-    marginLeft: 10,
-    marginRight: 10,
-  },
-  link: {
-    color: "#0A6ED3",
-    fontWeight: "bold",
-  },
-  divider: {
-    backgroundColor: "#0A6ED3",
-    margin: 40,
-  },
-});

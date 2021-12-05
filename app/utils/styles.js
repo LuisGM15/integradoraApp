@@ -1,6 +1,18 @@
 import { StyleSheet } from "react-native";
 
 global.styles = StyleSheet.create({
+    espacio: {
+        height: 20
+    },
+    imagenLogin: {
+        width: 90,
+        height: 90,
+    },
+    login: {
+        paddingTop: 150,
+        textAlignVertical: "center",
+        padding: 25,
+    },
     centrar: {
         justifyContent: "center",
         alignItems: "center"
@@ -8,9 +20,6 @@ global.styles = StyleSheet.create({
     btnForm: {
         backgroundColor: "#29528E",
         width: 200,
-
-
-
     },
     formulario: {
         padding: 25
