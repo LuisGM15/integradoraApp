@@ -60,6 +60,63 @@ export default function Candidate_Profile_Form() {
     console.log(intereses);
   };
 
+  const Send = (_habilidad) => {
+    var ban = false;
+    var idBorrar = "";
+    db.collection("accounts")
+      .get()
+      .then((res) => {
+        res.forEach((item) => {
+          if (item.data()["tokenUser"] == firebase.auth().currentUser.uid) {
+            console.log("encontrado");
+            ///////
+            db.collection("accounts")
+              .doc(item.id)
+              .collection("intereses")
+              .get()
+              .then((request2) => {
+                request2.forEach((item2) => {
+                  if (item2.data()["nombre"] === _habilidad) {
+                    /* SI LA ENCONTRÓ CAMBIA LA BANDERA DE ESTADO */
+                    idBorrar = item2.id;
+                    ban = true;
+                  }
+                });
+                /* SI YA EXISTE LA HABILIDAD LA BORRA*/
+                if (ban) {
+                  console.log("YA EXISTE");
+                  db.collection("accounts")
+                    .doc(item.id)
+                    .collection("intereses")
+                    .doc(idBorrar)
+                    .delete()
+                    .then((req) => {
+                      console.log("ELIMINADO---------------------------");
+                    });
+                } else {
+                  /* SI NO EXISTE LA AGREGA */
+                  db.collection("accounts")
+                    .doc(item.id)
+                    .collection("intereses")
+                    .add({
+                      nombre: _habilidad,
+                    })
+                    .then((request3) => {
+                      console.log(
+                        "GUARDADO-----------------------------------"
+                      );
+                    })
+                    .catch((e) => {
+                      console.log("NO SE ARMOOOOOO------------------------");
+                    });
+                }
+              });
+          }
+        });
+      });
+    /////////////////////
+  };
+
   return (
     <View style={styles.vista}>
       <View style={styles.formContainer}>
@@ -69,10 +126,10 @@ export default function Candidate_Profile_Form() {
             /*  selectedValue={selectedValue} */
             style={{ height: 50, width: 150 }}
             onValueChange={(itemValue, itemIndex) => {
-              /* console.log(itemValue);
-              setSelectedValue(itemValue);
-              AddArreglo(itemValue);
-              Send(itemValue); */
+              console.log(itemValue);
+              setSelectedValue(itemValue); /*
+              AddArreglo(itemValue);*/
+              Send(itemValue);
             }}
           >
             <Picker.Item label="Seleccionar" value="seleccionar" />
