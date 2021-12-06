@@ -161,22 +161,7 @@ export default function Contractor_profile_edit() {
           label="Sexo"
           onChange={(e) => setSexo(e.nativeEvent.text)}
         />
-        <Picker
-          containerStyle={styles.inputForm}
-          selectedValue={selectedValue}
-          style={{ height: 50, width: 150 }}
-          onValueChange={(itemValue, itemIndex) => {
-            console.log(itemValue);
-            setDoc({ ...doc, estudios: estudios });
-            setSelectedValue(itemValue);
-          }}
-        >
-          <Picker.Item label="Primaria" value="Primaria" />
-          <Picker.Item label="Secundaria" value="Secundaria" />
-          <Picker.Item label="Bachillerato" value="Bachillerato" />
-          <Picker.Item label="Licenciatura" value="Licenciatura" />
-          <Picker.Item label="Maestria" value="Maestria" />
-        </Picker>
+
         {/*  <Input
           labelStyle={styles.lab}
           style={styles.inp}

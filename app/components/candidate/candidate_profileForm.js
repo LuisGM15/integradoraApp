@@ -20,7 +20,10 @@ import * as Permission from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
 import uuid from "random-uuid-v4";
 import { map, size, filter } from "lodash";
+import { useNavigation } from "@react-navigation/native";
+
 const WidthScreen = Dimensions.get("window").width;
+
 
 //opciones de radiobutton
 const radioButtonsData = [
@@ -45,6 +48,8 @@ export default function Candidate_Profile_Form(toast) {
   const [imagen, setImagen] = useState([]);
   const [url, setURL] = useState();
   const [_fechaMostrar, setFECHA] = useState();
+  const navegacion = useNavigation();
+
   function onPressRadioButton(radioButtonsArray) {
     //radioButton
     setRadioButtons(radioButtonsArray);
@@ -103,9 +108,21 @@ export default function Candidate_Profile_Form(toast) {
     //cCONSULTA LA COLLRECION DE CUENTAS
   };
 
+  const onSubmit = () => {
+    navegacion.navigate("login")
+  };
+
   return (
     <ScrollView>
-      <View style={styles.formulario}>
+      <View style={styles.vista2}>
+        <View style={styles.btnCepo}>
+          <Button
+            title="Cerrar Sesión"
+            buttonStyle={styles.btnCerrar}
+            /* Al dar click activamos el método onSubmit */
+            onPress={onSubmit}
+          />
+        </View>
         <Input
           labelStyle={styles.lab}
           style={styles.inp}
@@ -158,19 +175,18 @@ export default function Candidate_Profile_Form(toast) {
             <Picker.Item label="Licenciatura" value="Licenciatura" />
             <Picker.Item label="Maestria" value="Maestria" />
           </Picker>
-          <View style={styles.box}>
-            <Input
-              labelStyle={styles.lab}
-              style={styles.inp}
-              label="Fecha de nacimiento"
-              value={_fechaMostrar}
-            />
-            <Button
-              title="Show Date Picker"
-              buttonStyle={styles.btnForm}
-              onPress={showDatePicker}
-            />
-          </View>
+          <Button
+            title="Seleccionar Fecha"
+            buttonStyle={styles.btnForm}
+            onPress={showDatePicker}
+          />
+          <Input
+            labelStyle={styles.lab}
+            style={styles.inp}
+            label="Fecha de nacimiento"
+            value={_fechaMostrar}
+          />
+
 
           <DateTimePickerModal
             isVisible={isDatePickerVisible}
@@ -187,7 +203,7 @@ export default function Candidate_Profile_Form(toast) {
           />
         </View>
 
-        {/* <Icon
+        <Icon
           reverse
           type="material_community"
           name="add"
@@ -195,7 +211,7 @@ export default function Candidate_Profile_Form(toast) {
           containerStyle={styles.btn}
           //Vinculamos el envió a la ruta agregar-suc
           onPress={() => Save()}
-        /> */}
+        />
       </View>
     </ScrollView>
   );

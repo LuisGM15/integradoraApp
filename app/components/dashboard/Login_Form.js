@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Input, Button, Icon } from "react-native-elements";
 import { useNavigation } from "@react-navigation/core";
@@ -6,6 +6,7 @@ import { validarEmail } from "../../utils/validaciones";
 import { size, isEmpty } from "lodash";
 import "../../utils/globals";
 import { Image } from "react-native-elements";
+import { useFocusEffect } from "@react-navigation/native";
 
 
 import firebase from "firebase";
@@ -20,7 +21,21 @@ export default function Login_Form(toast) {
   const [datos, setDatos] = useState(valoresDefault);
   const navigation = useNavigation();
 
+  useFocusEffect(
+    useCallback(() => {
+      setDatos(valoresDefault);
+      setDatos({ ...datos, email: "" }); setDatos({ ...datos, password: "" });
+    }, [])
+  );
+
+  /*  useEffect(
+ 
+     setDatos(valoresDefault)
+ 
+   ); */
+
   const onSubmit = () => {
+
     if (isEmpty(datos.email) || isEmpty(datos.password)) {
       //console.log("No puedes dejar campos vacios");
       toastRef.current.show("No puedes dejar campos vacios");
@@ -31,6 +46,7 @@ export default function Login_Form(toast) {
       //console.log("La contraseña debe tener almenos 6 Caracteres");
       toastRef.current.show("La contraseña debe tener almenos 6 Caracteres");
     } else {
+
       //console.log("Iniciando sesión...");
       toastRef.current.show("Iniciando sesión...");
       /* Creamos nuestra promesa para la consulta a la BD */
@@ -46,6 +62,8 @@ export default function Login_Form(toast) {
           console.log(err);
           toastRef.current.show("Email o contraseña incorrecta");
         });
+      /* setDatos({ ...datos, email: "" }); setDatos({ ...datos, password: "" }); */
+
     }
   };
 
@@ -85,6 +103,7 @@ export default function Login_Form(toast) {
       <View style={styles.boxLogin}>
         <Input
           labelStyle={styles.lab}
+          value={datos.email}
           style={styles.inp}
           label="Correo Electrónico"
           onChange={(e) => onChange(e, "email")}
@@ -96,6 +115,7 @@ export default function Login_Form(toast) {
       </View>
       <View style={styles.boxLogin}>
         <Input
+          value={datos.password}
           selectionColor="#29528E"
           label="Contraseña"
           labelStyle={styles.lab}

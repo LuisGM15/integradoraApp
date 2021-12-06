@@ -55,36 +55,10 @@ export default function Contractor_Profile() {
   };
 
   const onSubmit = () => {
-    if (isEmpty(datos.email) || isEmpty(datos.password)) {
-      //console.log("No puedes dejar campos vacios");
-      toastRef.current.show("No puedes dejar campos vacios");
-    } else if (!validarEmail(datos.email)) {
-      //console.log("Email no valido");
-      toastRef.current.show("Email no valido");
-    } else if (size(datos.password) < 6) {
-      //console.log("La contraseña debe tener almenos 6 Caracteres");
-      toastRef.current.show("La contraseña debe tener almenos 6 Caracteres");
-    } else {
-      //console.log("Iniciando sesión...");
-      toastRef.current.show("Iniciando sesión...");
-      /* Creamos nuestra promesa para la consulta a la BD */
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(datos.email, datos.password)
-        .then((request) => {
-          //Si los datos son correctos no debe enviar a nuestra screen de cuentas
-          toastRef.current.show("¡Bienvenido!");
-          queryUser(request["user"]["uid"]);
-        })
-        .catch((err) => {
-          console.log(err);
-          toastRef.current.show("Email o contraseña incorrecta");
-        });
-    }
+    navegacion.navigate("login")
   };
 
   return (
-
     <View style={styles.vista2}>
       <View style={styles.btnCepo}>
         <Button
@@ -94,8 +68,6 @@ export default function Contractor_Profile() {
           onPress={onSubmit}
         />
       </View>
-
-
       <View>
         <Image source={require('../../utils/images/anonimo.png')} style={styles.imagenP}></Image>
       </View>

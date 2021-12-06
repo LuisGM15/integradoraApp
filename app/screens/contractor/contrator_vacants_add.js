@@ -26,18 +26,9 @@ export default function Contractor_Vacants_Add(toast) {
 
 
   const onSubmit = () => {
-    if (isEmpty(titulo) || isEmpty(requisitos) || isEmpty(descripcion) || isEmpty(horario) || isEmpty(pago)) {
-      //console.log("No puedes dejar campos vacios");
-      toastRef.current.show("No puedes dejar campos vacios");
-    } else {
-      //console.log("Iniciando sesión...");
-      toastRef.current.show("Guardando...");
-      /* Creamos nuestra promesa para la consulta a la BD */
 
-    }
   };
-
-  /* const Guardar = () => {
+  const Guardar = () => {
     db.collection("vacantes")
       .add({
         titulo: titulo,
@@ -53,7 +44,8 @@ export default function Contractor_Vacants_Add(toast) {
       .catch((e) => {
         console.log(e);
       });
-  }; */
+  };
+
 
   function valoreDefault() {
     return {
@@ -107,7 +99,7 @@ export default function Contractor_Vacants_Add(toast) {
           <Button
             title="Registrar"
             buttonStyle={styles.btnForm}
-            onPress={onSubmit}
+            onPress={Guardar}
           />
         </View>
       </View>

@@ -43,7 +43,7 @@ export default function Registry_Form(toast) {
     else if (datos.password !== datos.repeatedPassword) {
       toastRef.current.show("Las contraseñas deben ser iguales");
     } else {
-      toastRef.current.show("REGISTROSO");
+      toastRef.current.show("REGISTRADO");
       /* BLOQUE PARA CREAR EL NUEVO USUARIO */
       firebase
         .auth()

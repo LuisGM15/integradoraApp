@@ -65,13 +65,13 @@ function opciones(ruta, color) {
       iconName = "home";
       break;
     case "perfil":
-      iconName = "favorite";
+      iconName = "content-paste";
       break;
     case "intereses":
-      iconName = "favorite";
+      iconName = "book";
       break;
     case "Contratista":
-      iconName = "favorite";
+      iconName = "tablet";
       break;
     default:
       break;
