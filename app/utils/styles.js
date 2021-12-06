@@ -1,6 +1,10 @@
 import { StyleSheet } from "react-native";
 
 global.styles = StyleSheet.create({
+    textOlvidar: {
+        fontWeight: "bold",
+        paddingBottom: 20
+    },
     link: {
         color: "#29528E",
         fontWeight: "bold",
@@ -9,7 +13,7 @@ global.styles = StyleSheet.create({
     },
     textRegistrar: {
         fontWeight: "bold",
-        paddingTop: 10,
+        paddingTop: 40,
     },
     boxLogin: {
         flex: 1,
