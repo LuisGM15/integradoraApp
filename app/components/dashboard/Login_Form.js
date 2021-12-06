@@ -112,6 +112,18 @@ export default function Login_Form(toast) {
         />
       </View>
       <View style={styles.centrar}>
+        <Text style={styles.textOlvidar}>
+          ¿Olvidaste tu contraseña?{" "}
+          <Text
+            style={styles.link}
+            onPress={() => navigation.navigate("registry")}
+          >
+            Recuperar
+          </Text>
+        </Text>
+      </View>
+
+      <View style={styles.centrar}>
         <Button
           title="Iniciar Sesión"
           buttonStyle={styles.btnForm}
@@ -124,7 +136,7 @@ export default function Login_Form(toast) {
             style={styles.link}
             onPress={() => navigation.navigate("registry")}
           >
-            Registrate
+            Regístrate
           </Text>
         </Text>
       </View>

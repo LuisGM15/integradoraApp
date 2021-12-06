@@ -67,56 +67,67 @@ export default function Registry_Form(toast) {
   };
 
   return (
-    <View style={styles.formContainer}>
-      <Input
-        placeholder="Correo Electrónico"
-        containerStyle={styles.inputForm}
-        onChange={(e) => onChange(e, "email")}
-        rightIcon={
-          <Icon
-            type="material-community-icon"
-            name="alternate-email"
-            iconStyle={styles.icono}
-          />
-        }
-      />
-      <Input
-        placeholder="Contraseña"
-        containerStyle={styles.inputForm}
-        password={true}
-        secureTextEntry={true}
-        secureTextEntry={mostrar ? false : true}
-        onChange={(e) => onChange(e, "password")}
-        rightIcon={
-          <Icon
-            type="material-community-icon"
-            name={mostrar ? "visibility" : "visibility-off"}
-            iconStyle={styles.icono}
-            onPress={() => setMostrar(!mostrar)}
-          />
-        }
-      />
-      <Input
-        placeholder="Repetir contraseña"
-        containerStyle={styles.inputForm}
-        password={true}
-        secureTextEntry={mostrar2 ? false : true}
-        onChange={(e) => onChange(e, "repeatedPassword")}
-        rightIcon={
-          <Icon
-            type="material-community-icon"
-            name={mostrar2 ? "visibility" : "visibility-off"}
-            iconStyle={styles.icono}
-            onPress={() => setMostrar2(!mostrar2)}
-          />
-        }
-      />
-      <Button
-        title="Registrar"
-        containerStyle={styles.btnContainer}
-        buttonStyle={styles.btn}
-        onPress={onSubmit}
-      />
+    <View style={styles.register}>
+      <View style={styles.boxLogin}>
+        <Input
+          labelStyle={styles.lab}
+          style={styles.inp}
+          label="Correo Electrónico"
+          onChange={(e) => onChange(e, "email")}
+        />
+        <Icon
+          type="material-community-icon"
+          name="alternate-email"
+          containerStyle={styles.border}
+        />
+      </View>
+
+      <View style={styles.boxLogin}>
+
+        <Input
+          labelStyle={styles.lab}
+          style={styles.inp}
+          label="Contraseña"
+          password={true}
+          secureTextEntry={true}
+          secureTextEntry={mostrar ? false : true}
+          onChange={(e) => onChange(e, "password")}
+        />
+        <Icon
+          type="material-community-icon"
+          name={mostrar ? "visibility" : "visibility-off"}
+          containerStyle={styles.border}
+          onPress={() => setMostrar(!mostrar)}
+
+        />
+      </View>
+      <View style={styles.boxLogin}>
+
+        <Input
+          labelStyle={styles.lab}
+          style={styles.inp}
+          label="Repetir contraseña"
+          password={true}
+          secureTextEntry={mostrar2 ? false : true}
+          onChange={(e) => onChange(e, "repeatedPassword")}
+        />
+
+        <Icon
+          type="material-community-icon"
+          name={mostrar2 ? "visibility" : "visibility-off"}
+          containerStyle={styles.border}
+          onPress={() => setMostrar2(!mostrar2)}
+        />
+      </View>
+      <View style={styles.centrar}>
+
+        <Button
+          title="Registrar"
+          buttonStyle={styles.btnForm}
+          onPress={onSubmit}
+        />
+      </View>
+
     </View>
   );
 }
@@ -129,25 +140,3 @@ function valoreDefault() {
   };
 }
 
-const styles = StyleSheet.create({
-  formContainer: {
-    /* flex: 1, */
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 30,
-  },
-  inputForm: {
-    width: "100%",
-    marginTop: 20,
-  },
-  btnContainer: {
-    marginTop: 20,
-    width: "100%",
-  },
-  btn: {
-    backgroundColor: "#0A6ED3",
-  },
-  icono: {
-    color: "#c1c1c1",
-  },
-});
