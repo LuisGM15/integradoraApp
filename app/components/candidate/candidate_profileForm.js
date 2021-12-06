@@ -104,25 +104,29 @@ export default function Candidate_Profile_Form(toast) {
 
   return (
     <ScrollView>
-      <View style={styles.formContainer}>
+      <View style={styles.formulario}>
         <Input
-          placeholder="Apellido paterno"
-          containerStyle={styles.inputForm}
+          labelStyle={styles.lab}
+          style={styles.inp}
+          label="Apellido paterno"
           onChange={(e) => onChange(e, "paterno")}
         />
         <Input
-          placeholder="Apellido materno"
-          containerStyle={styles.inputForm}
+          labelStyle={styles.lab}
+          style={styles.inp}
+          label="Apellido materno"
           onChange={(e) => onChange(e, "materno")}
         />
         <Input
-          placeholder="Nombre(s)"
-          containerStyle={styles.inputForm}
+          labelStyle={styles.lab}
+          style={styles.inp}
+          label="Nombre(s)"
           onChange={(e) => onChange(e, "nombres")}
         />
         <Input
-          placeholder="Número de teléfono"
-          containerStyle={styles.inputForm}
+          labelStyle={styles.lab}
+          style={styles.inp}
+          label="Número de teléfono"
           onChange={(e) => onChange(e, "telefono")}
         />
         <RadioGroup
@@ -137,32 +141,38 @@ export default function Candidate_Profile_Form(toast) {
           }}
         />
         {/* Selector de estudios */}
-        <Picker
-          containerStyle={styles.inputForm}
-          selectedValue={selectedValue}
-          style={{ height: 50, width: 150 }}
-          onValueChange={(itemValue, itemIndex) => {
-            setDoc({ ...doc, estudios: itemValue });
-            setSelectedValue(itemValue);
-          }}
-        >
-          <Picker.Item label="Primaria" value="Primaria" />
-          <Picker.Item label="Secundaria" value="Secundaria" />
-          <Picker.Item label="Bachillerato" value="Bachillerato" />
-          <Picker.Item label="Licenciatura" value="Licenciatura" />
-          <Picker.Item label="Maestria" value="Maestria" />
-        </Picker>
-        {/* <Input
+        <View style={styles.centrar}>
+          <Picker
+            containerStyle={styles.inputForm}
+            selectedValue={selectedValue}
+            style={{ height: 50, width: 150 }}
+            onValueChange={(itemValue, itemIndex) => {
+              setDoc({ ...doc, estudios: itemValue });
+              setSelectedValue(itemValue);
+            }}
+          >
+            <Picker.Item label="Primaria" value="Primaria" />
+            <Picker.Item label="Secundaria" value="Secundaria" />
+            <Picker.Item label="Bachillerato" value="Bachillerato" />
+            <Picker.Item label="Licenciatura" value="Licenciatura" />
+            <Picker.Item label="Maestria" value="Maestria" />
+          </Picker>
+          {/* <Input
           placeholder="Habilidades, conocimientos"
           containerStyle={styles.inputForm}
         /> */}
-        <Button title="Show Date Picker" onPress={showDatePicker} />
-        <DateTimePickerModal
-          isVisible={isDatePickerVisible}
-          mode="date"
-          onConfirm={handleConfirm}
-          onCancel={hideDatePicker}
-        />
+          <Button
+            title="Show Date Picker"
+            buttonStyle={styles.btnForm}
+            onPress={showDatePicker}
+          />
+          <DateTimePickerModal
+            isVisible={isDatePickerVisible}
+            mode="date"
+            onConfirm={handleConfirm}
+            onCancel={hideDatePicker}
+          />
+        </View>
         {/* <Button
         title="Registrar"
         containerStyle={styles.btnContainer}
@@ -193,51 +203,3 @@ export default function Candidate_Profile_Form(toast) {
     };
   }
 }
-
-const styles = StyleSheet.create({
-  formContainer: {
-    /*  flex: 1, */
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 30,
-    paddingLeft: 29,
-    paddingRight: 20,
-  },
-  inputForm: {
-    width: "100%",
-    marginTop: 20,
-  },
-  btnContainer: {
-    marginTop: 20,
-    width: "100%",
-  },
-  btn: {
-    backgroundColor: "#0A6ED3",
-  },
-  icono: {
-    color: "#c1c1c1",
-  },
-  btn: {
-    position: "absolute",
-    bottom: 10,
-    right: 10,
-    //Para IOS mostrará una sombra para el botón
-    shadowColor: "black",
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.5,
-  },
-  icono: {
-    alignItems: "center",
-    justifyContent: "center",
-    marginRight: 10,
-    height: 70,
-    width: 70,
-    backgroundColor: "#e3e3e3",
-  },
-  vistaImagenes: {
-    flexDirection: "row",
-    marginLeft: 20,
-    marginRight: 20,
-    marginTop: 30,
-  },
-});

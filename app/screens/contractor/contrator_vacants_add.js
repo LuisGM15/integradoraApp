@@ -9,10 +9,14 @@ import "firebase/firestore";
 const db = firebase.firestore(firebaseApp);
 import { ScrollView } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
+import { size, isEmpty } from "lodash";
 
 
 
-export default function Contractor_Vacants_Add() {
+
+export default function Contractor_Vacants_Add(toast) {
+  const { toastRef } = toast;
+
   //horario prestaciones requisitos descripcion sueldo
   const [titulo, setTitulo] = useState("");
   const [requisitos, setRequisitos] = useState("");
@@ -20,7 +24,20 @@ export default function Contractor_Vacants_Add() {
   const [horario, setHorario] = useState("");
   const [pago, setPago] = useState("");
 
-  const Guardar = () => {
+
+  const onSubmit = () => {
+    if (isEmpty(titulo) || isEmpty(requisitos) || isEmpty(descripcion) || isEmpty(horario) || isEmpty(pago)) {
+      //console.log("No puedes dejar campos vacios");
+      toastRef.current.show("No puedes dejar campos vacios");
+    } else {
+      //console.log("Iniciando sesión...");
+      toastRef.current.show("Guardando...");
+      /* Creamos nuestra promesa para la consulta a la BD */
+
+    }
+  };
+
+  /* const Guardar = () => {
     db.collection("vacantes")
       .add({
         titulo: titulo,
@@ -36,7 +53,7 @@ export default function Contractor_Vacants_Add() {
       .catch((e) => {
         console.log(e);
       });
-  };
+  }; */
 
   function valoreDefault() {
     return {
@@ -90,7 +107,7 @@ export default function Contractor_Vacants_Add() {
           <Button
             title="Registrar"
             buttonStyle={styles.btnForm}
-            onPress={Guardar}
+            onPress={onSubmit}
           />
         </View>
       </View>

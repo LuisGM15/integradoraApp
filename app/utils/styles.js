@@ -1,8 +1,24 @@
 import { StyleSheet } from "react-native";
 
 global.styles = StyleSheet.create({
+    link: {
+        color: "#29528E",
+        fontWeight: "bold",
+        fontSize: 15,
+
+    },
+    textRegistrar: {
+        fontWeight: "bold",
+        paddingTop: 10,
+    },
+    boxLogin: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     espacio: {
-        height: 20
+        height: 20,
     },
     imagenLogin: {
         width: 90,
