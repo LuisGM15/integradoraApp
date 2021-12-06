@@ -23,7 +23,7 @@ export default function Candidate_Profile_Form() {
   const [idColecction, setIdCol] = useState();
   const [intereses, setIntereses] = useState([]);
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   useFocusEffect(
     useCallback(() => {
@@ -139,7 +139,7 @@ export default function Candidate_Profile_Form() {
             <Picker.Item label="Artes" value="artes" />
             <Picker.Item label="Danza" value="danza" />
           </Picker>
-          <Button title="Borrar" onPress={_si} />
+          <Button title="Borrar" onPress={_si} style={styles.btn} />
         </View>
         <Text> Seleccionados: </Text>
         <Candidate_Interes_2 intereses={intereses} />
@@ -154,6 +154,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFF",
   },
   renglon: {
+    paddingBottom: 30,
+    paddingTop: 50,
     flexDirection: "row",
   },
   formContainer: {
@@ -173,7 +175,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   btn: {
-    backgroundColor: "#0A6ED3",
+    backgroundColor: "#FFFF",
   },
   icono: {
     color: "#c1c1c1",

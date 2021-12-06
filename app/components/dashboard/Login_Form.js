@@ -11,6 +11,7 @@ import { Image } from "react-native-elements";
 import firebase from "firebase";
 import { firebaseApp } from "../../utils/firebase";
 import "firebase/firestore";
+import { color } from "react-native-reanimated";
 const db = firebase.firestore(firebaseApp);
 
 export default function Login_Form(toast) {
@@ -81,36 +82,35 @@ export default function Login_Form(toast) {
         <Image source={require('../../utils/images/anonimo.png')} style={styles.imagenLogin}></Image>
       </View>
       <View style={styles.espacio}></View>
-      <Input
-        labelStyle={styles.lab}
-        style={styles.inp}
-        label="Correo Electrónico"
-        onChange={(e) => onChange(e, "email")}
-        rightIcon={
-          <Icon
-            type="material-community-icon"
-            name="alternate-email"
-            iconStyle={styles.icono}
-          />
-        }
-      />
-      <Input
-        label="Contraseña"
-        labelStyle={styles.lab}
-        style={styles.inp}
-        password={true}
-        secureTextEntry={true}
-        secureTextEntry={mostrar ? false : true}
-        onChange={(e) => onChange(e, "password")}
-        rightIcon={
-          <Icon
-            type="material-community-icon"
-            name={mostrar ? "visibility" : "visibility-off"}
-            iconStyle={styles.icono}
-            onPress={() => setMostrar(!mostrar)}
-          />
-        }
-      />
+      <View style={styles.boxLogin}>
+        <Input
+          labelStyle={styles.lab}
+          style={styles.inp}
+          label="Correo Electrónico"
+          onChange={(e) => onChange(e, "email")}
+        />
+        <Icon
+          name="alternate-email"
+          containerStyle={styles.border}
+        />
+      </View>
+      <View style={styles.boxLogin}>
+        <Input
+          selectionColor="#29528E"
+          label="Contraseña"
+          labelStyle={styles.lab}
+          style={styles.inp}
+          password={true}
+          secureTextEntry={true}
+          secureTextEntry={mostrar ? false : true}
+          onChange={(e) => onChange(e, "password")}
+        />
+        <Icon
+          style={styles.iconsR}
+          name={mostrar ? "visibility" : "visibility-off"}
+          onPress={() => setMostrar(!mostrar)}
+        />
+      </View>
       <View style={styles.centrar}>
         <Button
           title="Iniciar Sesión"
@@ -118,7 +118,6 @@ export default function Login_Form(toast) {
           /* Al dar click activamos el método onSubmit */
           onPress={onSubmit}
         />
-
         <Text style={styles.textRegistrar}>
           ¿Aún no tienes una cuenta?{" "}
           <Text
@@ -129,7 +128,6 @@ export default function Login_Form(toast) {
           </Text>
         </Text>
       </View>
-
     </View>
   );
 }

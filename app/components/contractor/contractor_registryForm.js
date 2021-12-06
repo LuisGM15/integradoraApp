@@ -73,122 +73,95 @@ export default function Contractor_RegistryForm(toast) {
 
   return (
     <ScrollView>
-      <View style={styles.formContainer}>
-        <Text> Contractor_Registry !!</Text>
+      <View style={styles.formulario}>
 
         <Input
-          placeholder="Nombre"
-          containerStyle={styles.inputForm}
+          label="Nombre"
+          labelStyle={styles.lab}
+          style={styles.inp}
           onChange={(e) => onChange(e, "nombre")}
         />
         <Input
-          placeholder="RFC"
+          labelStyle={styles.lab}
+          style={styles.inp}
+          label="RFC"
           containerStyle={styles.inputForm}
           onChange={(e) => onChange(e, "rfc")}
         />
         <Input
-          placeholder="Teléfono"
+          labelStyle={styles.lab}
+          style={styles.inp}
+          label="Teléfono"
           containerStyle={styles.inputForm}
           onChange={(e) => onChange(e, "telefono")}
         />
         <Input
-          placeholder="Calle"
+          labelStyle={styles.lab}
+          style={styles.inp}
+          label="Calle"
           containerStyle={styles.inputForm}
           onChange={(e) => onChange(e, "calle")}
         />
         <Input
-          placeholder="Número"
-          containerStyle={styles.inputForm}
+          labelStyle={styles.lab}
+          style={styles.inp}
+          label="Número"
           onChange={(e) => onChange(e, "numero")}
         />
         <Input
-          placeholder="Colonia"
-          containerStyle={styles.inputForm}
+          labelStyle={styles.lab}
+          style={styles.inp}
+          label="Colonia"
           onChange={(e) => onChange(e, "colonia")}
         />
         <Input
-          placeholder="C P"
-          containerStyle={styles.inputForm}
+          labelStyle={styles.lab}
+          style={styles.inp}
+          label="C P"
           onChange={(e) => onChange(e, "cp")}
         />
         <Input
-          placeholder="Ciudad"
-          containerStyle={styles.inputForm}
+          labelStyle={styles.lab}
+          style={styles.inp}
+          label="Ciudad"
           onChange={(e) => onChange(e, "ciudad")}
         />
         <Input
-          placeholder="Estado"
-          containerStyle={styles.inputForm}
+          labelStyle={styles.lab}
+          style={styles.inp}
+          label="Estado"
           onChange={(e) => onChange(e, "estado")}
         />
-        <Text> Area de trabajo</Text>
+        <View style={styles.centrar}>
+          <Text style={styles.concepto}> Area de trabajo</Text>
+        </View>
+        <View style={styles.centrar}>
 
-        <Picker
-          containerStyle={styles.picker_style}
-          selectedValue={selectedValue}
-          style={{ height: 80, width: 300 }}
-          onValueChange={(itemValue, itemIndex) => {
-            console.log(itemValue);
-            setDatos({ ...datos, area: itemValue });
-            setSelectedValue(itemValue);
-          }}
-        >
-          <Picker.Item label="Área de la salud" value="salud" />
-          <Picker.Item label="Educación" value="educacion" />
-          <Picker.Item label="Arquitectura" value="arquitectura" />
-          <Picker.Item label="Ingenieria informática" value="informatica" />
-          <Picker.Item label="Química" value="quimica" />
-        </Picker>
-        <Button
-          title="Registrar"
-          containerStyle={styles.btnContainer}
-          /* buttonStyle={styles.btn} */
-          onPress={Guardar}
-        />
+          <Picker
+            selectedValue={selectedValue}
+            style={{ height: 80, width: 300 }}
+            onValueChange={(itemValue, itemIndex) => {
+              console.log(itemValue);
+              setDatos({ ...datos, area: itemValue });
+              setSelectedValue(itemValue);
+            }}
+          >
+            <Picker.Item label="Área de la salud" value="salud" />
+            <Picker.Item label="Educación" value="educacion" />
+            <Picker.Item label="Arquitectura" value="arquitectura" />
+            <Picker.Item label="Ingenieria informática" value="informatica" />
+            <Picker.Item label="Química" value="quimica" />
+          </Picker>
+
+          <Button
+            title="Registrar"
+            buttonStyle={styles.btnForm}
+            onPress={Guardar}
+          />
+        </View>
+
       </View>
     </ScrollView>
   );
 }
 
-const styles = StyleSheet.create({
-  formContainer: {
-    /*  flex: 1, */
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 30,
-    paddingLeft: 29,
-    paddingRight: 20,
-  },
-  btnRegistrar: {
-    width: "2000%",
-    height: "30",
-  },
-  inputForm: {
-    width: "100%",
-    marginTop: 20,
-  },
-  picker_style: {
-    width: "100%",
-    marginTop: 100,
-  },
-  btnContainer: {
-    marginTop: 20,
-    marginBottom: 40,
-    width: "100%",
-  },
-  btn: {
-    backgroundColor: global.color_princilap,
-  },
-  icono: {
-    color: "#c1c1c1",
-  },
-  btn: {
-    position: "absolute",
-    bottom: 10,
-    right: 10,
-    //Para IOS mostrará una sombra para el botón
-    shadowColor: "black",
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.5,
-  },
-});
