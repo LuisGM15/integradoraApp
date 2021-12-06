@@ -44,7 +44,7 @@ export default function Candidate_Profile_Form(toast) {
   const { toastRef } = toast;
   const [imagen, setImagen] = useState([]);
   const [url, setURL] = useState();
-
+  const [_fechaMostrar, setFECHA] = useState();
   function onPressRadioButton(radioButtonsArray) {
     //radioButton
     setRadioButtons(radioButtonsArray);
@@ -60,7 +60,8 @@ export default function Candidate_Profile_Form(toast) {
 
   const handleConfirm = (date) => {
     const _fecha = moment(date).format("DD/MM/YYYY");
-
+    setFECHA(_fecha);
+    console.log(_fechaMostrar);
     setDoc({ ...doc, nacimiento: _fecha });
     hideDatePicker();
   };
@@ -157,15 +158,20 @@ export default function Candidate_Profile_Form(toast) {
             <Picker.Item label="Licenciatura" value="Licenciatura" />
             <Picker.Item label="Maestria" value="Maestria" />
           </Picker>
-          {/* <Input
-          placeholder="Habilidades, conocimientos"
-          containerStyle={styles.inputForm}
-        /> */}
-          <Button
-            title="Show Date Picker"
-            buttonStyle={styles.btnForm}
-            onPress={showDatePicker}
-          />
+          <View style={styles.box}>
+            <Input
+              labelStyle={styles.lab}
+              style={styles.inp}
+              label="Fecha de nacimiento"
+              value={_fechaMostrar}
+            />
+            <Button
+              title="Show Date Picker"
+              buttonStyle={styles.btnForm}
+              onPress={showDatePicker}
+            />
+          </View>
+
           <DateTimePickerModal
             isVisible={isDatePickerVisible}
             mode="date"
@@ -173,12 +179,15 @@ export default function Candidate_Profile_Form(toast) {
             onCancel={hideDatePicker}
           />
         </View>
-        {/* <Button
-        title="Registrar"
-        containerStyle={styles.btnContainer}
-        buttonStyle={styles.btn}
-      /> */}
-        <Icon
+        <View style={styles.centrar}>
+          <Button
+            title="Guardar"
+            buttonStyle={styles.btnForm}
+            onPress={Save()}
+          />
+        </View>
+
+        {/* <Icon
           reverse
           type="material_community"
           name="add"
@@ -186,7 +195,7 @@ export default function Candidate_Profile_Form(toast) {
           containerStyle={styles.btn}
           //Vinculamos el envió a la ruta agregar-suc
           onPress={() => Save()}
-        />
+        /> */}
       </View>
     </ScrollView>
   );
