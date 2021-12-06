@@ -9,6 +9,10 @@ import firebase from "firebase/app";
 import "firebase/storage";
 import "firebase/firestore";
 const db = firebase.firestore(firebaseApp);
+import * as Permission from "expo-permissions";
+import * as ImagePicker from "expo-image-picker";
+import uuid from "random-uuid-v4";
+import { map, size, filter } from "lodash";
 
 //opciones de radiobutton
 const radioButtonsData = [
@@ -30,13 +34,80 @@ export default function Candidate_Profile_Form(toast) {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [doc, setDoc] = useState(valoresDoc);
   const { toastRef } = toast;
-  /* const [sex, setSex] = useState("");
-  var sisi = ""; */
+  const [imagen, setImagen] = useState([]);
+  const [url, setURL] = useState();
+
+  function SubirImagen(propiedades) {
+    const { toastRef, urls, setUrl } = propiedades;
+
+    const seleccionar = async () => {
+      const resultado = await Permission.askAsync(Permission.MEDIA_LIBRARY);
+
+      if (resultado === "denied") {
+        toastRef.current.show("Debes permitir el acceso a la galeria", 4000);
+      } else {
+        const result = await ImagePicker.launchImageLibraryAsync({
+          allowsEditing: true,
+          aspect: [4, 3],
+        });
+        if (result.cancelled) {
+          toastRef.current.show("Debes seleccionar una imagen", 3000);
+        } else {
+          console.log(
+            "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+          );
+
+          /* setImage([...imagen, result.uri]); */
+          setUrl(result.uri);
+          console.log("asasas " + urls);
+          /* console.log(imagen); */
+        }
+      }
+    };
+
+    return (
+      <View style={styles.vistaImagenes}>
+        <Icon
+          type="material-community"
+          name="camera"
+          color="#7a7a7a"
+          containerStyle={styles.icono}
+          onPress={seleccionar}
+        />
+      </View>
+    );
+  }
+
+  const subirImagenesStorage = async () => {
+    console.log("SI ENTRE----------------------------------------");
+    /* const imagenesBlob = ""; */
+    const imagenesBlob = [];
+
+    const response = await fetch(url);
+    const blob = await response.blob();
+    const ref = firebase.storage().ref("Perfiles").child(uuid());
+    await ref
+      .put(blob)
+      .then(async (resultado) => {
+        console.log("si subio----------------------------------------");
+        await firebase
+          .storage()
+          .ref(`Perfiles/${resultado.metadata.name}`)
+          .getDownloadURL()
+          .then((urlFoto) => {
+            imagenesBlob.push(urlFoto);
+          });
+      })
+      .catch((e) => {
+        console.log("ERROR ENCONTRADO");
+      });
+
+    return imagenesBlob;
+  };
 
   function onPressRadioButton(radioButtonsArray) {
     //radioButton
     setRadioButtons(radioButtonsArray);
-    /* console.log(radioButtonsArray["label"]); */
   }
 
   const showDatePicker = () => {
@@ -49,8 +120,7 @@ export default function Candidate_Profile_Form(toast) {
 
   const handleConfirm = (date) => {
     const _fecha = moment(date).format("DD/MM/YYYY");
-    /* console.warn("A date has been picked: ", date); */
-    console.log(_fecha);
+
     setDoc({ ...doc, nacimiento: _fecha });
     hideDatePicker();
   };
@@ -60,39 +130,45 @@ export default function Candidate_Profile_Form(toast) {
     setDoc({ ...doc, [type]: e.nativeEvent.text });
   };
   const Save = () => {
-    console.log("--------------------------------------------------------");
-    //cCONSULTA LA COLLRECION DE CUENTAS
-    db.collection("accounts")
-      .get()
-      .then((request) => {
-        //RECORREMOS LOS DOCUMENTOS EN CUENTAS
-        request.forEach((item) => {
-          //PREGUNTA SI COICIDE EL DOCUEMNTO RECORRIDO CON EL UID DEL USUARIO ACTIVO
-          if (item.data()["tokenUser"] === firebase.auth().currentUser.uid) {
-            //SI LO ENCUENTRA REGISTRA LOS DATOS DE USUARIO
-            console.log("coincide: " + item.id);
-            db.collection("accounts")
-              .doc(item.id)
-              .update({
-                paterno: doc.paterno,
-                materno: doc.materno,
-                nombres: doc.nombres,
-                telefono: doc.telefono,
-                sexo: doc.sexo,
-                estudios: doc.estudios,
-                nacimiento: doc.nacimiento,
-              })
-              .then(() => {
-                toastRef.current.show("Datos modificados");
-              });
-          }
+    /* GUARDAR IMG EN STORAGE */
+    subirImagenesStorage().then((resp) => {
+      console.log("RESPPPP: " + resp);
+      db.collection("accounts")
+        .get()
+        .then((request) => {
+          //RECORREMOS LOS DOCUMENTOS EN CUENTAS
+          request.forEach((item) => {
+            //PREGUNTA SI COICIDE EL DOCUEMNTO RECORRIDO CON EL UID DEL USUARIO ACTIVO
+            if (item.data()["tokenUser"] === firebase.auth().currentUser.uid) {
+              //SI LO ENCUENTRA REGISTRA LOS DATOS DE USUARIO
+              db.collection("accounts")
+                .doc(item.id)
+                .update({
+                  paterno: doc.paterno,
+                  materno: doc.materno,
+                  nombres: doc.nombres,
+                  telefono: doc.telefono,
+                  sexo: doc.sexo,
+                  estudios: doc.estudios,
+                  nacimiento: doc.nacimiento,
+                  imagen: resp,
+                })
+                .then(() => {
+                  toastRef.current.show("Datos modificados");
+                });
+            }
+          });
         });
-      });
+    });
+
+    //cCONSULTA LA COLLRECION DE CUENTAS
   };
 
   return (
     <ScrollView>
       <View style={styles.formContainer}>
+        <SubirImagen toast={toastRef} urls={url} setUrl={setURL} />
+
         <Input
           placeholder="Apellido paterno"
           containerStyle={styles.inputForm}
@@ -130,7 +206,6 @@ export default function Candidate_Profile_Form(toast) {
           selectedValue={selectedValue}
           style={{ height: 50, width: 150 }}
           onValueChange={(itemValue, itemIndex) => {
-            console.log(itemValue);
             setDoc({ ...doc, estudios: itemValue });
             setSelectedValue(itemValue);
           }}
@@ -214,5 +289,19 @@ const styles = StyleSheet.create({
     shadowColor: "black",
     shadowOffset: { width: 2, height: 2 },
     shadowOpacity: 0.5,
+  },
+  icono: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginRight: 10,
+    height: 70,
+    width: 70,
+    backgroundColor: "#e3e3e3",
+  },
+  vistaImagenes: {
+    flexDirection: "row",
+    marginLeft: 20,
+    marginRight: 20,
+    marginTop: 30,
   },
 });

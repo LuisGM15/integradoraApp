@@ -23,9 +23,7 @@ export default function Candidate_Profile_Form() {
   const [idColecction, setIdCol] = useState();
   const [intereses, setIntereses] = useState([]);
 
-  /* useEffect(() => {
-    
-  }, []); */
+  useEffect(() => {}, []);
 
   useFocusEffect(
     useCallback(() => {
@@ -63,57 +61,59 @@ export default function Candidate_Profile_Form() {
   const Send = (_habilidad) => {
     var ban = false;
     var idBorrar = "";
-    db.collection("accounts")
-      .get()
-      .then((res) => {
-        res.forEach((item) => {
-          if (item.data()["tokenUser"] == firebase.auth().currentUser.uid) {
-            console.log("encontrado");
-            ///////
-            db.collection("accounts")
-              .doc(item.id)
-              .collection("intereses")
-              .get()
-              .then((request2) => {
-                request2.forEach((item2) => {
-                  if (item2.data()["nombre"] === _habilidad) {
-                    /* SI LA ENCONTRÓ CAMBIA LA BANDERA DE ESTADO */
-                    idBorrar = item2.id;
-                    ban = true;
+    if (_habilidad != "seleccionar") {
+      db.collection("accounts")
+        .get()
+        .then((res) => {
+          res.forEach((item) => {
+            if (item.data()["tokenUser"] == firebase.auth().currentUser.uid) {
+              console.log("encontrado");
+              ///////
+              db.collection("accounts")
+                .doc(item.id)
+                .collection("intereses")
+                .get()
+                .then((request2) => {
+                  request2.forEach((item2) => {
+                    if (item2.data()["nombre"] === _habilidad) {
+                      /* SI LA ENCONTRÓ CAMBIA LA BANDERA DE ESTADO */
+                      idBorrar = item2.id;
+                      ban = true;
+                    }
+                  });
+                  /* SI YA EXISTE LA HABILIDAD LA BORRA*/
+                  if (ban) {
+                    console.log("YA EXISTE");
+                    db.collection("accounts")
+                      .doc(item.id)
+                      .collection("intereses")
+                      .doc(idBorrar)
+                      .delete()
+                      .then((req) => {
+                        console.log("ELIMINADO---------------------------");
+                      });
+                  } else {
+                    /* SI NO EXISTE LA AGREGA */
+                    db.collection("accounts")
+                      .doc(item.id)
+                      .collection("intereses")
+                      .add({
+                        nombre: _habilidad,
+                      })
+                      .then((request3) => {
+                        console.log(
+                          "GUARDADO-----------------------------------"
+                        );
+                      })
+                      .catch((e) => {
+                        console.log("NO SE ARMOOOOOO------------------------");
+                      });
                   }
                 });
-                /* SI YA EXISTE LA HABILIDAD LA BORRA*/
-                if (ban) {
-                  console.log("YA EXISTE");
-                  db.collection("accounts")
-                    .doc(item.id)
-                    .collection("intereses")
-                    .doc(idBorrar)
-                    .delete()
-                    .then((req) => {
-                      console.log("ELIMINADO---------------------------");
-                    });
-                } else {
-                  /* SI NO EXISTE LA AGREGA */
-                  db.collection("accounts")
-                    .doc(item.id)
-                    .collection("intereses")
-                    .add({
-                      nombre: _habilidad,
-                    })
-                    .then((request3) => {
-                      console.log(
-                        "GUARDADO-----------------------------------"
-                      );
-                    })
-                    .catch((e) => {
-                      console.log("NO SE ARMOOOOOO------------------------");
-                    });
-                }
-              });
-          }
+            }
+          });
         });
-      });
+    }
     /////////////////////
   };
 
