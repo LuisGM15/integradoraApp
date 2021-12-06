@@ -116,7 +116,7 @@ export default function Login_Form(toast) {
           ¿Olvidaste tu contraseña?{" "}
           <Text
             style={styles.link}
-            onPress={() => navigation.navigate("registry")}
+            onPress={() => navigation.navigate("recuperar")}
           >
             Recuperar
           </Text>

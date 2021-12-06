@@ -54,8 +54,48 @@ export default function Contractor_Profile() {
     setTelefono(tel);
   };
 
+  const onSubmit = () => {
+    if (isEmpty(datos.email) || isEmpty(datos.password)) {
+      //console.log("No puedes dejar campos vacios");
+      toastRef.current.show("No puedes dejar campos vacios");
+    } else if (!validarEmail(datos.email)) {
+      //console.log("Email no valido");
+      toastRef.current.show("Email no valido");
+    } else if (size(datos.password) < 6) {
+      //console.log("La contraseña debe tener almenos 6 Caracteres");
+      toastRef.current.show("La contraseña debe tener almenos 6 Caracteres");
+    } else {
+      //console.log("Iniciando sesión...");
+      toastRef.current.show("Iniciando sesión...");
+      /* Creamos nuestra promesa para la consulta a la BD */
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(datos.email, datos.password)
+        .then((request) => {
+          //Si los datos son correctos no debe enviar a nuestra screen de cuentas
+          toastRef.current.show("¡Bienvenido!");
+          queryUser(request["user"]["uid"]);
+        })
+        .catch((err) => {
+          console.log(err);
+          toastRef.current.show("Email o contraseña incorrecta");
+        });
+    }
+  };
+
   return (
-    <View style={styles.vista}>
+
+    <View style={styles.vista2}>
+      <View style={styles.btnCepo}>
+        <Button
+          title="Cerrar Sesión"
+          buttonStyle={styles.btnCerrar}
+          /* Al dar click activamos el método onSubmit */
+          onPress={onSubmit}
+        />
+      </View>
+
+
       <View>
         <Image source={require('../../utils/images/anonimo.png')} style={styles.imagenP}></Image>
       </View>

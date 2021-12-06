@@ -1,6 +1,16 @@
 import { StyleSheet } from "react-native";
 
 global.styles = StyleSheet.create({
+    btnCepo: {
+
+        paddingBottom: 20,
+        paddingTop: 10
+    },
+    btnCerrar: {
+        height: 45,
+        width: 200,
+        backgroundColor: "#29528E",
+    },
     textOlvidar: {
         fontWeight: "bold",
         paddingBottom: 20
@@ -86,6 +96,14 @@ global.styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "#FFFF",
         justifyContent: "center",
+        alignItems: "center"
+
+
+    },
+    vista2: {
+        flex: 1,
+        backgroundColor: "#FFFF",
+        /* justifyContent: "center", */
         alignItems: "center"
 
 

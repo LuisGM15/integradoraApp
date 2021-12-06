@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "../screens/dashboard/Login";
 import Registry from "../screens/dashboard/Registry";
+import Recuperar from "../components/dashboard/Recuperar";
 import Contrator_navigation from "./contractor_navigation";
 import Candidate_Navigation from "./candidate_navigation";
 
@@ -35,6 +36,11 @@ export default function Dashboard() {
           name="registry"
           component={Registry}
           options={{ title: "Registro" }}
+        />
+        <Stack.Screen
+          name="recuperar"
+          component={Recuperar}
+          options={{ title: "Recuperar" }}
         />
         <Stack.Screen
           name="contractor_index"

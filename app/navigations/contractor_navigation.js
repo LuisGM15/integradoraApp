@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Icon } from "react-native-elements";
 import "../utils/globals";
@@ -13,6 +13,7 @@ const Tab = createBottomTabNavigator();
 export default function Contrator_navigation() {
   return (
     <Tab.Navigator
+
       initialRouteName="home_contractor"
       tabBarStyle={{
         //Color del tecto e icono cuando no esta activado
