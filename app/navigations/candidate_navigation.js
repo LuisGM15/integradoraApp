@@ -9,6 +9,7 @@ import Candidate_index from "../screens/candidate/candidate_index";
 import Candidate_profile from "../screens/candidate/candidate_profile";
 import Candidate_interests from "../screens/candidate/candidate_interests";
 import Contractor_Registry from "../screens/contractor/contractor_registry";
+import Contractor_profile_nav from "./candidate/candidate_profile_nav";
 
 const Tab = createBottomTabNavigator();
 
