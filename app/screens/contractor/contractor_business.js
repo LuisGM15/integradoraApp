@@ -10,7 +10,6 @@ const db = firebase.firestore(firebaseApp);
 import { useNavigation } from "@react-navigation/native";
 import { Image } from "react-native-elements";
 
-
 export default function Contractor_business() {
   const [nombre, setnombre] = useState("");
   const [area, setArea] = useState("");
@@ -77,7 +76,10 @@ export default function Contractor_business() {
   return (
     <View style={styles.vista}>
       <View>
-        <Image source={require('../../utils/images/anonimo.png')} style={styles.imagenP}></Image>
+        <Image
+          source={require("../../utils/images/anonimo.png")}
+          style={styles.imagenP}
+        ></Image>
       </View>
       <Text style={styles.miPerfil}>{nombre}</Text>
       <View style={styles.boxMiPerfil}>
@@ -87,41 +89,32 @@ export default function Contractor_business() {
       <View style={styles.boxMiPerfil}>
         <Text style={styles.concepto}>Tel:</Text>
         <Text style={styles.miPerfilSub}>{telefono}</Text>
-        <Text>   </Text>
+        <Text> </Text>
         <Text style={styles.concepto}>RFC:</Text>
         <Text style={styles.miPerfilSub}>{rfc}</Text>
       </View>
       <View style={styles.boxMiPerfil}>
         <Text style={styles.concepto}>Calle:</Text>
         <Text style={styles.miPerfilSub}>{calle}</Text>
-        <Text>   </Text>
+        <Text> </Text>
         <Text style={styles.concepto}>Num:</Text>
         <Text style={styles.miPerfilSub}>{numero}</Text>
       </View>
       <View style={styles.boxMiPerfil}>
         <Text style={styles.concepto}>Colonia:</Text>
         <Text style={styles.miPerfilSub}>{colonia}</Text>
-        <Text>   </Text>
-        <Text style={styles.concepto}>Código Postal:</Text>
-        <Text style={styles.miPerfilSub}>{cp}</Text>
+        <Text> </Text>
+        {/* <Text style={styles.concepto}>Código Postal:</Text>
+        <Text style={styles.miPerfilSub}>{cp}</Text> */}
       </View>
 
       <View style={styles.boxMiPerfil}>
         <Text style={styles.concepto}>Estado:</Text>
         <Text style={styles.miPerfilSub}>{estado}</Text>
-        <Text>   </Text>
+        <Text> </Text>
         <Text style={styles.concepto}>Ciudad:</Text>
         <Text style={styles.miPerfilSub}>{ciudad}</Text>
       </View>
-
-
-
-
-
-
-
-
-
 
       <Icon
         reverse
@@ -135,5 +128,3 @@ export default function Contractor_business() {
     </View>
   );
 }
-
-

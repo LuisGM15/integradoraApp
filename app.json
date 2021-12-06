@@ -23,12 +23,12 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.luisgm15.incorpora"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "userInterfaceStyle": "automatic"
-    
   }
 }

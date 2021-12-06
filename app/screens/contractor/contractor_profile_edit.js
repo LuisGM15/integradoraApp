@@ -20,6 +20,7 @@ export default function Contractor_profile_edit() {
   const [sexo, setSexo] = useState("");
   const [tel, setTelefono] = useState("");
   const [estudios, setEstudios] = useState("");
+  const [doc, setDoc] = useState("");
   /* const { toastRef } = toast; */
 
   useFocusEffect(
@@ -194,4 +195,3 @@ export default function Contractor_profile_edit() {
     </ScrollView>
   );
 }
-

@@ -153,14 +153,14 @@ export default function Contractor_Edit_Business() {
           containerStyle={styles.inputForm}
           onChange={(e) => setCalle(e.nativeEvent.text)}
         />
-        <Input
+        {/* <Input
           labelStyle={styles.lab}
           style={styles.inp}
           value={cp}
           label="CP"
           containerStyle={styles.inputForm}
           onChange={(e) => setCP(e.nativeEvent.text)}
-        />
+        /> */}
         <Input
           labelStyle={styles.lab}
           style={styles.inp}
